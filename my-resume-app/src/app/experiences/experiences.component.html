@@ -1,0 +1,6 @@
+<h1>{{title}}</h1>
+<div>
+    @for (experience of experiences; track $index) {
+        <app-experience-article [experience]="experience"></app-experience-article>
+    }
+</div>
