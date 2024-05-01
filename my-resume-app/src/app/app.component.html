@@ -1,6 +1,8 @@
 <mat-toolbar color="primary">
     <span>{{title}}</span>
     <span class="app-toolbar-spacer"></span>
-    <mat-icon svgIcon="github" class="app-toolbar-icon" aria-hidden="false" aria-label="Link to personal GitHub icon"></mat-icon>
+    <a [href]="gitHubLinkUrl">
+        <mat-icon svgIcon="github" class="app-toolbar-icon" aria-hidden="false" aria-label="Link to personal GitHub icon"></mat-icon>
+    </a>
 </mat-toolbar>
 <app-experiences></app-experiences>
