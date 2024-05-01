@@ -1,0 +1,6 @@
+.app-toolbar-icon {
+    padding: 0 .25em;
+}
+.app-toolbar-spacer {
+    flex: 1 1 auto;
+}

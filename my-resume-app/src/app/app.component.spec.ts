@@ -19,4 +19,9 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app.title).toEqual('my-resume-app');
   });
+
+  it('should load custom Angular Material palette for primary colors', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const appDe = fixture.debugElement;
+  });
 });

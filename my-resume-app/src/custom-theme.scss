@@ -1,0 +1,54 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+$rusty-orange-palette: (
+  50: #fff3e0,
+  100: #ffe1b2,
+  200: #ffcd81,
+  300: #ffb94e,
+  400: #ffa927,
+  500: #ff9b00,
+  600: #fb8f00,
+  700: #f57f00,
+  800: #ef6f00,
+  900: #e65400,
+  contrast: (50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white)
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$my-resume-app-primary: mat.define-palette($rusty-orange-palette, 400, 200, 600, 800);
+$my-resume-app-accent: mat.define-palette(mat.$pink-palette);
+
+// The warn palette is optional (defaults to red).
+$my-resume-app-warn: mat.define-palette(mat.$deep-purple-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$my-resume-app-theme: mat.define-light-theme((color: (primary: $my-resume-app-primary,
+        accent: $my-resume-app-accent,
+        warn: $my-resume-app-warn,
+      ),
+      density: 0));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($my-resume-app-theme);
