@@ -20,4 +20,12 @@ describe('ExperienceArticleComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should apply expected styles to experience dates', () => {
+    const experienceArticleEl: HTMLElement = fixture.nativeElement;
+    const dateDiv = experienceArticleEl.querySelector('div[class="dates"]');
+    
+    expect(dateDiv !== null);
+    expect(dateDiv?.computedStyleMap().get('padding') != "");
+  });
 });
