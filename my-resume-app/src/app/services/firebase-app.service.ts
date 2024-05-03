@@ -21,7 +21,7 @@ signInAnonymously(auth)
         const errorCode = error.code;
         const errorMessage = error.message;
 
-        console.error(`Error logging into Firebase {errorCode}: {errorMessage}`);
+        console.error(`Error logging into Firebase ${errorCode}: ${errorMessage}`);
     });
 
 @Injectable({
