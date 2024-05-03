@@ -3,7 +3,7 @@
         <h1>{{experience.title}}</h1>
         <h2>{{experience.company}}</h2>
         <div class="dates">
-            {{experience.startDate | date}} - {{experience.endDate | date}}
+            {{experience.startDate.toDate() | date}} - {{experience.endDate.toDate() | date}}
         </div>
         <div class="description">
             {{experience.description}}

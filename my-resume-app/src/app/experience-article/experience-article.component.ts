@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Experience } from '../../experience';
+import { Experience } from '../../data/experience';
 import { DatePipe } from '@angular/common';
 
 @Component({

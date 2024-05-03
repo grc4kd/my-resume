@@ -43,3 +43,7 @@ Thumbs.db
 
 # Secrets
 secrets/
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json

@@ -89,6 +89,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "my-resume-app:build:production",
+              "serveTarget": "my-resume-app:serve:production"
+            },
+            "development": {
+              "buildTarget": "my-resume-app:build:development",
+              "serveTarget": "my-resume-app:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

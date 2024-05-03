@@ -1,46 +1,25 @@
-import { Injectable } from "@angular/core";
-import { initializeApp } from "firebase/app";
-import { doc, getDoc, getFirestore } from 'firebase/firestore/lite';
+import { Injectable, inject } from "@angular/core";
+import { DocumentReference, Firestore, collection, collectionData, doc, docData, getDoc } from '@angular/fire/firestore';
 
-// Your web app's Firebase configuration, these secrets will be accessible by the browser when deployed
-import { firebaseConfig } from "../../../secrets/firebase-config";
-
-// allow anonymous authentication, don't forget to cleanup accounts!
-import { getAuth, signInAnonymously } from "firebase/auth";
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const auth = getAuth();
-signInAnonymously(auth)
-    .then(() => {
-        // Signed in..
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        console.error(`Error logging into Firebase ${errorCode}: ${errorMessage}`);
-    });
+import { Experience } from "../../data/experience";
+import { Observable } from "rxjs";
+import { WebLink } from "../../data/webLink";
 
 @Injectable({
     providedIn: 'root',
 })
 export class FirebaseAppService {    
+    firestore: Firestore = inject(Firestore);
+    
     // get a link to GitHub from Firebase
-    async getGitHubLink(): Promise<string> {
-        const webLinkDocRef = doc(db, 'web-links', 'github');
-        const webLinkSnapshot = await getDoc(webLinkDocRef);
-        
-        if (webLinkSnapshot.exists()) {
-            const webLinkData: string | undefined = webLinkSnapshot.get('url');
-            
-            return webLinkData ?? "";
-        } else {
-            console.error("Could not find the requested document: " + webLinkDocRef);
+    getGitHubLink(): Observable<WebLink> {
+        const webLinkDoc = doc(this.firestore, 'web-links/github');
+        return docData(webLinkDoc) as Observable<WebLink>
+    }
 
-            return "";
-        }
+    // get work experience data from Firebase
+    getWorkExperiences(): Observable<Experience[]> {
+        const experienceCollection = collection(this.firestore, '/experiences');
+        return collectionData(experienceCollection, { idField: 'id' }) as Observable<Experience[]>;
     }
 }

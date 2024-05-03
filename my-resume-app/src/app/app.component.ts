@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
@@ -7,7 +7,7 @@ import { ExperiencesComponent } from "./experiences/experiences.component";
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FirebaseAppService } from './services/firebase-app.service';
-import { Observable, Subscription, from, shareReplay, takeUntil } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -19,7 +19,6 @@ import { Observable, Subscription, from, shareReplay, takeUntil } from 'rxjs';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'my-resume-app';
   gitHubLinkUrl: string = 'https://github.com/';
-  gitHubLinkObs: Observable<string>;
   gitHubLinkSub: Subscription = new Subscription();
 
   constructor(
@@ -29,16 +28,11 @@ export class AppComponent implements OnInit, OnDestroy {
     iconRegistry.addSvgIcon('github', 
       sanitizer.bypassSecurityTrustResourceUrl('assets/icons/github-mark.svg'),
       {viewBox: "0 0 96 98"});
-
-    this.gitHubLinkObs = from(this.firebaseAppService.getGitHubLink())
-      .pipe(
-        shareReplay(1)
-      );
   }
 
   ngOnInit(): void {
-    this.gitHubLinkSub = this.gitHubLinkObs.subscribe(url => {
-      this.gitHubLinkUrl = url;
+    this.gitHubLinkSub = this.firebaseAppService.getGitHubLink().subscribe(webLink => {
+      this.gitHubLinkUrl = webLink.url;
     });
   }
 
