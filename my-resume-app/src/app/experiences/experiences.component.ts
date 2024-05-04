@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { EXPERIENCES } from '../../data/mock-experiences';
+import { Component, OnInit } from '@angular/core';
 import { Experience } from '../../data/experience';
 import { ExperienceArticleComponent } from '../experience-article/experience-article.component';
 import { FirebaseAppService } from '../services/firebase-app.service';
