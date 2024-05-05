@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
 
 import { ExperiencesComponent } from "./experiences/experiences.component";
-import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FirebaseAppService } from './services/firebase-app.service';
 import { Subscription } from 'rxjs';
+import { SvgIconService } from './services/svg-icon.service';
 
 @Component({
     selector: 'app-root',
@@ -18,16 +18,12 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'my-resume-app';
-  gitHubLinkUrl: string = 'https://github.com/';
+  gitHubLinkUrl: string = '';
   gitHubLinkSub: Subscription = new Subscription();
 
-  constructor(
-    iconRegistry: MatIconRegistry, 
-    sanitizer: DomSanitizer,
-    private firebaseAppService: FirebaseAppService) {
-    iconRegistry.addSvgIcon('github', 
-      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/github-mark.svg'),
-      {viewBox: "0 0 96 98"});
+  constructor(private firebaseAppService: FirebaseAppService) {
+    // injecting SVG icon service registers icons used throughout the app
+    inject(SvgIconService)
   }
 
   ngOnInit(): void {
