@@ -1,0 +1,7 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content class="mat-typography">
+    <h3>{{data.subtitle}}</h3>
+    @for (item of data.description | experienceDetail; track $index) {
+        <p>{{item}}</p>
+    }
+</mat-dialog-content>

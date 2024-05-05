@@ -1,10 +1,11 @@
 import { Timestamp } from "firebase/firestore";
+import { ExperienceDetail } from "./experience-detail";
 
 export interface Experience {
-    id: string,
-    title: string,
-    description: string,
+    title: string;
+    description: string;
     company: string;
     startDate: Timestamp;
     endDate: Timestamp;
+    detail: ExperienceDetail;
 }
