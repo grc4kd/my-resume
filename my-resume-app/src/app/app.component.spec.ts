@@ -1,10 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { Firestore } from '@angular/fire/firestore';
+
+let firestoreStub: Partial<Firestore>;
+firestoreStub = {
+
+}
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [{ provide: Firestore, useValue: firestoreStub }]
     }).compileComponents();
   });
 

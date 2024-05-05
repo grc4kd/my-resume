@@ -1,6 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExperiencesComponent } from './experiences.component';
+import { FirebaseAppService } from '../services/firebase-app.service';
+import { EXPERIENCES } from '../../data/mock-experiences';
+import { of } from 'rxjs';
+
+let firebaseAppServiceStub: Partial<FirebaseAppService>;
+firebaseAppServiceStub = {
+  getWorkExperiences: () => {
+    return of(EXPERIENCES);
+  }
+}
 
 describe('ExperiencesComponent', () => {
   let component: ExperiencesComponent;
@@ -8,7 +18,8 @@ describe('ExperiencesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ExperiencesComponent]
+      imports: [ExperiencesComponent],
+      providers: [{ provide: FirebaseAppService, useValue: firebaseAppServiceStub }]
     })
     .compileComponents();
     
