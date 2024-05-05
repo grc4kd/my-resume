@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogModule } from '@angular/material/dialog';
 import { ExperienceDetail } from '../../data/experience-detail';
-import { ExperienceDetailPipe } from "../experiences/experience-detail-pipe.pipe";
+import { ExperienceDetailPipe } from "../experiences/experience-detail.pipe";
 
 @Component({
     selector: 'app-experience-detail-dialog',
