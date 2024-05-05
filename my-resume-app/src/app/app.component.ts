@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
+import { MatIconModule } from "@angular/material/icon";
 
 import { ExperiencesComponent } from "./experiences/experiences.component";
 import { HttpClientModule } from '@angular/common/http';

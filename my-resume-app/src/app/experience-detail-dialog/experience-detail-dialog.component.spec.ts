@@ -3,8 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DialogContentExperienceDetail } from './experience-detail-dialog.component';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { Inject, InjectionToken } from '@angular/core';
-import { Experience } from '../../data/experience';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EXPERIENCES } from '../../data/mock-experiences';
 import { ExperienceDetail } from '../../data/experience-detail';

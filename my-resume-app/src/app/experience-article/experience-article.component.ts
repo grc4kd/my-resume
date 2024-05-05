@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Experience } from '../../data/experience';
 import { DatePipe } from '@angular/common';
 import { DialogContentExperienceDetail } from '../experience-detail-dialog/experience-detail-dialog.component';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
@@ -17,7 +17,7 @@ export class ExperienceArticleComponent {
   
   constructor(public dialog: MatDialog) {}
 
-  openDialog(config?: MatDialogConfig) {
+  openDialog() {
     this.dialog.open(DialogContentExperienceDetail, {
       data: this.experience?.detail,
     });

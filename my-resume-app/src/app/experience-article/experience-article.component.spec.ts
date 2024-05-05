@@ -7,22 +7,16 @@ import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { EXPERIENCES } from '../../data/mock-experiences';
 import { Experience } from '../../data/experience';
-import { MatDialogConfig } from '@angular/material/dialog';
 
 describe('ExperienceArticleComponent', () => {
   let component: ExperienceArticleComponent;
   let fixture: ComponentFixture<ExperienceArticleComponent>;
   let loader: HarnessLoader;
   let expectedExperience: Experience;
-  let matDialogConfig: MatDialogConfig;
 
   beforeEach(async () => {
     // mock data for experience passed in from parent component
     expectedExperience = EXPERIENCES[0];
-
-    // use dialog config to inject data rather than the application root injector
-    matDialogConfig = new MatDialogConfig();
-    matDialogConfig.data = expectedExperience.detail;
 
     await TestBed.configureTestingModule({
       imports: [ExperienceArticleComponent, NoopAnimationsModule],
@@ -56,13 +50,13 @@ describe('ExperienceArticleComponent', () => {
   });
 
   it('should load harness for dialog', async () => {
-    fixture.componentInstance.openDialog(matDialogConfig);
+    fixture.componentInstance.openDialog();
     const dialogs = await loader.getAllHarnesses(MatDialogHarness);
     expect(dialogs.length).toBe(1);
   })
 
   it('should be able to close dialog', async () => {
-    fixture.componentInstance.openDialog(matDialogConfig);
+    fixture.componentInstance.openDialog();
     let dialogs = await loader.getAllHarnesses(MatDialogHarness);
 
     expect(dialogs.length).toBe(1);
