@@ -10,7 +10,15 @@ export const EXPERIENCES: Experience[] = [
         endDate: Timestamp.fromDate(new Date(2001, 11, 31)),
         startDate: Timestamp.fromDate(new Date(2001, 0, 1)),
         title: "Software Developer",
-        detail: {} as ExperienceDetail
+        detail: {
+            title: "Software Developer Detail",
+            subtitle: "Full-Stack Developer",
+            description: `A full-stack developer is a type of software developer that specializes in broad knowledge about 
+            multiple software layers. This type of developer can typically be found delving deeply into a few subjects at a 
+            time, while also prioritizing total business value above specific implementation details. However, this doesn't 
+            mean that they aren't aware of the risks and benefits of clean code. On the contrary, sometimes their most 
+            pressing responsibility is deciding where to expend the most effort and discipline.`
+        }
     },
     {
         company: "Knuckles' Fast Stop",
