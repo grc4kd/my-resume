@@ -19,7 +19,7 @@ export class ExperiencesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.firebaseAppService.getWorkExperiences().subscribe(experiences => {
+    this.firebaseAppService.WorkExperiences.subscribe(experiences => {
       this.experiences = experiences;
     });
   }

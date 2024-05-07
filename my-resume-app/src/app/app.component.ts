@@ -18,16 +18,16 @@ import { SvgIconService } from './services/svg-icon.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'my-resume-app';
-  gitHubLinkUrl: string = '';
-  gitHubLinkSub: Subscription = new Subscription();
-
-  constructor(private firebaseAppService: FirebaseAppService) {
-    // injecting SVG icon service registers icons used throughout the app
-    inject(SvgIconService)
+  gitHubLinkUrl = '';
+  gitHubLinkSub = new Subscription();
+  firebaseAppService = inject(FirebaseAppService);
+  
+  constructor() {
+    inject(SvgIconService);
   }
 
   ngOnInit(): void {
-    this.gitHubLinkSub = this.firebaseAppService.getGitHubLink().subscribe(webLink => {
+    this.gitHubLinkSub = this.firebaseAppService.GitHubLink.subscribe(webLink => {
       this.gitHubLinkUrl = webLink.url;
     });
   }

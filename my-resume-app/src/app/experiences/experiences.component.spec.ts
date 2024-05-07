@@ -7,9 +7,7 @@ import { of } from 'rxjs';
 
 let firebaseAppServiceStub: Partial<FirebaseAppService>;
 firebaseAppServiceStub = {
-  getWorkExperiences: () => {
-    return of(EXPERIENCES);
-  }
+  WorkExperiences: of(EXPERIENCES)
 }
 
 describe('ExperiencesComponent', () => {
@@ -31,7 +29,6 @@ describe('ExperiencesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
 
   it(`should render 'Work Experience' title`, () => {
     const fixture = TestBed.createComponent(ExperiencesComponent);

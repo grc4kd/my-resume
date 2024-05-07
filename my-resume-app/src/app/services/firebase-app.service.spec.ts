@@ -1,58 +1,76 @@
 import { FirebaseAppService } from './firebase-app.service';
 import { WebLink } from '../../data/webLink';
-import { defer } from 'rxjs';
+import { from } from 'rxjs';
 import { EXPERIENCES } from '../../data/mock-experiences';
-import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
+import { Firestore, connectFirestoreEmulator, doc, getFirestore, setDoc, writeBatch } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../../secrets/firebase-config';
 import { TestBed } from '@angular/core/testing';
-import { importProvidersFrom } from '@angular/core';
-import { provideFirebaseApp } from '@angular/fire/app';
-import { provideFirestore } from '@angular/fire/firestore';
-
-export function asyncData<T>(data: T) {
-  return defer(() => Promise.resolve(data));
-}
+import { DatePipe } from '@angular/common';
 
 describe('FirebaseAppService', () => {
-  /** 
-   * @description To avoid tests against a cloud-hosted instance, an emulator is utilized on the same machine 
-   * running tests. 
-   * @link [Connect your app to the Cloud Firestore Emulator](https://firebase.google.com/docs/emulator-suite/connect_firestore) */ 
-  let firebaseAppService: FirebaseAppService;
+  const datePipe = new DatePipe('en-US', undefined, {dateFormat: 'y-MM-dd'});
+  const expectedLink: WebLink = { url: 'https://github.com' };
 
+  let firebaseAppService: FirebaseAppService;
+  
   beforeAll(() => {
-    initializeApp(firebaseConfig);
-    const db = getFirestore();
+    const db = getFirestore(initializeApp(firebaseConfig));
+
+    /* 
+     * To avoid tests against a cloud-hosted instance, an emulator is utilized on the same machine 
+     * running tests. 
+     * For more information see: Connect your app to the Cloud Firestore Emulator:
+     * https://firebase.google.com/docs/emulator-suite/connect_firestore */ 
     connectFirestoreEmulator(db, '127.0.0.1', 8080);
 
-    TestBed.configureTestingModule({ providers: [
-      importProvidersFrom(provideFirebaseApp(() => initializeApp(firebaseConfig))),
-      importProvidersFrom(provideFirestore(() => getFirestore())),
-      FirebaseAppService
-    ]});
+    // set test documents in emulator database
+    setDoc(doc(db, 'web-links', 'github'), expectedLink);
+    
+    const batch = writeBatch(db);
+    EXPERIENCES.forEach(experience => {
+      const whitespaceRegex = /\s/gi;
+      let experienceTitleFormat = experience.title.replaceAll(whitespaceRegex, '-').toLowerCase();
+      let startDateFormat = datePipe.transform(experience.startDate.toDate());
+      let endDateFormat = datePipe.transform(experience.endDate.toDate());
+  
+      batch.set(doc(db, "experiences", 
+      `mock-${experienceTitleFormat}-${startDateFormat}-${endDateFormat}`), experience);
+    });
+  
+    from(batch.commit()).subscribe({
+      next: () => console.log("Test data load complete."),
+      error: (err) => console.error(`Test data load failed, reason: ${err}`)
+    });
+  });
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        {provide: Firestore, useValue: getFirestore(initializeApp(firebaseConfig))}
+      ]
+    });
+
     firebaseAppService = TestBed.inject(FirebaseAppService);
   });
 
   it('should return a link to GitHub', (done: DoneFn) => {
-    const expectedLink: WebLink = {
-      url: 'https://github.com'
-    };
-
-    firebaseAppService.getGitHubLink().subscribe({
+    firebaseAppService.GitHubLink.subscribe({
       next: (link) => {
         expect(link).toEqual(expectedLink);
         done();
       },
-      error: done.fail,
-    });
+      error: (err) => fail(err)
+    }); 
   });
 
   it('should return data for work experiences', (done: DoneFn) => {
     const expectedExperiences = EXPERIENCES;
-
-    firebaseAppService.getWorkExperiences().subscribe({
+    
+    firebaseAppService.WorkExperiences.subscribe({
       next: (experiences) => {
+        expect(experiences.length).toBeGreaterThan(0);
+
         experiences.forEach((experience) => {
           const expectedStartTime = experience.startDate.toMillis();
           const expectedEndTime = experience.endDate.toMillis();
@@ -64,10 +82,9 @@ describe('FirebaseAppService', () => {
             expect(experience).toEqual(expected);
           }
         });
-
         done();
-      },  
-      error: done.fail
+      },
+      error: (err) => fail(err)
     });
   });
 });

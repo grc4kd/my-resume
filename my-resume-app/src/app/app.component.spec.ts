@@ -7,19 +7,17 @@ import { EXPERIENCES } from '../data/mock-experiences';
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
+  let firebaseAppService: Partial<FirebaseAppService>;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     const testGitHubLink = {url: 'https://github.com'};
 
-    /**
-     * a fake FirebaseAppService with a spy for getting GitHub link
-     * and a spy for getting work experiences
-     */
-    const firebaseAppService = jasmine.createSpyObj('FirebaseAppService', ['getGitHubLink', 'getWorkExperiences']);
-    firebaseAppService.getGitHubLink.and.returnValue(of(testGitHubLink));
-    firebaseAppService.getWorkExperiences.and.returnValue(of(EXPERIENCES));
+    firebaseAppService = {
+      GitHubLink: of(testGitHubLink),
+      WorkExperiences: of(EXPERIENCES)
+    };
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [{ provide: FirebaseAppService, useValue: firebaseAppService }]
     }).compileComponents();
