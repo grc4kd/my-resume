@@ -10,11 +10,11 @@ describe('AppComponent', () => {
   let firebaseAppService: Partial<FirebaseAppService>;
 
   beforeEach(() => {
-    const testGitHubLink = {url: 'https://github.com'};
+    const testGitHubLink = { url: 'https://github.com' };
 
     firebaseAppService = {
-      GitHubLink: of(testGitHubLink),
-      WorkExperiences: of(EXPERIENCES)
+      GitHubLink$: of(testGitHubLink),
+      WorkExperiences$: of(EXPERIENCES)
     };
 
     TestBed.configureTestingModule({

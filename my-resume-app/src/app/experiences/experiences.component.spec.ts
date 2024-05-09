@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 
 let firebaseAppServiceStub: Partial<FirebaseAppService>;
 firebaseAppServiceStub = {
-  WorkExperiences: of(EXPERIENCES)
+  WorkExperiences$: of(EXPERIENCES)
 }
 
 describe('ExperiencesComponent', () => {
@@ -19,8 +19,8 @@ describe('ExperiencesComponent', () => {
       imports: [ExperiencesComponent],
       providers: [{ provide: FirebaseAppService, useValue: firebaseAppServiceStub }]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ExperiencesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

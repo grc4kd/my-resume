@@ -1,9 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { Observable, Subject } from "rxjs";
-import { collection, doc, getDoc, getDocs, getFirestore } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../../../secrets/firebase-config";
+import { Firestore, collection, doc, getDoc, getDocs } from "firebase/firestore";
 
 import { WebLink } from "../../data/webLink";
 import { Experience } from "../../data/experience";
@@ -12,19 +10,16 @@ import { Experience } from "../../data/experience";
     providedIn: 'root',
 })
 export class FirebaseAppService {
-    gitHubLinkSubject = new Subject<WebLink>();
-    experiencesSubject = new Subject<Experience[]>();
+    gitHubLinkSubject: Subject<WebLink> = new Subject();
+    experiencesSubject: Subject<Experience[]> = new Subject();
 
-    constructor() {
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        
+    constructor(db: Firestore) {
         const webLinkDocRef = doc(db, "web-links", "github");
         getDoc(webLinkDocRef).then(
             (webLinkDocSnap) => {
                 if (webLinkDocSnap.exists()) {
-                    const webLinkAsWebLink = webLinkDocSnap.data() as WebLink;
-                    this.gitHubLinkSubject.next(webLinkAsWebLink);
+                    const webLink = webLinkDocSnap.data() as WebLink;
+                    this.gitHubLinkSubject.next(webLink);
                 }
             }
         );
@@ -38,12 +33,12 @@ export class FirebaseAppService {
     }
 
     // get a link to GitHub from Firebase
-    get GitHubLink(): Observable<WebLink> {
+    get GitHubLink$(): Observable<WebLink> {
         return this.gitHubLinkSubject.asObservable();
     }
 
     // get work experience data from Firebase
-    get WorkExperiences(): Observable<Experience[]> {
+    get WorkExperiences$(): Observable<Experience[]> {
         return this.experiencesSubject.asObservable();
     }
 }

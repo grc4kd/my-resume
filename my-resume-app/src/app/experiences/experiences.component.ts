@@ -15,11 +15,11 @@ export class ExperiencesComponent implements OnInit {
   experiences: Experience[] = [];
 
   constructor(private firebaseAppService: FirebaseAppService) {
-    
+
   }
 
   ngOnInit(): void {
-    this.firebaseAppService.WorkExperiences.subscribe(experiences => {
+    this.firebaseAppService.WorkExperiences$.subscribe(experiences => {
       this.experiences = experiences;
     });
   }
