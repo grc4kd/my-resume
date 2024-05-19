@@ -50,3 +50,5 @@ secrets/
 
 # vscode project settings
 .vscode/
+.nx/cache
+.nx/workspace-data

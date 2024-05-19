@@ -1,29 +1,28 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { FirebaseAppService } from './services/firebase-app.service';
-import { of } from 'rxjs';
 import { EXPERIENCES } from '../data/mock-experiences';
 
 describe('AppComponent', () => {
+  const testGitHubLink = { url: 'https://github.com/' };
+
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  let firebaseAppService: Partial<FirebaseAppService>;
+  let gitHubLinkEl: HTMLAnchorElement;
+
+  const firebaseAppServiceStub: Partial<FirebaseAppService> = {
+    gitHubLink: testGitHubLink,
+    workExperiences: EXPERIENCES
+  };
 
   beforeEach(() => {
-    const testGitHubLink = { url: 'https://github.com' };
-
-    firebaseAppService = {
-      GitHubLink$: of(testGitHubLink),
-      WorkExperiences$: of(EXPERIENCES)
-    };
-
     TestBed.configureTestingModule({
-      imports: [AppComponent],
-      providers: [{ provide: FirebaseAppService, useValue: firebaseAppService }]
-    }).compileComponents();
+      imports: [AppComponent]
+    }).overrideProvider(FirebaseAppService, { useValue: firebaseAppServiceStub });
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
+    gitHubLinkEl = fixture.nativeElement.querySelector('.github-link');
   });
 
   it('should create the app', () => {
@@ -35,12 +34,10 @@ describe('AppComponent', () => {
     expect(component.title).toEqual('my-resume-app');
   });
 
-  it('should have an empty string in webLink data before input properties are set', () => {
-    expect(component.gitHubLinkUrl).toBe('');
-  });
-
   it('should have initialized the webLink data from Firebase after input properties are set', () => {
-    fixture.detectChanges()
-    expect(component.gitHubLinkUrl).toBeDefined();
+    expect(gitHubLinkEl.href).toBe('');
+    
+    fixture.detectChanges();
+    expect(gitHubLinkEl.href).toBe(testGitHubLink.url);
   });
 });

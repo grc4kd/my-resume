@@ -1,16 +1,17 @@
-import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogModule } from '@angular/material/dialog';
 import { ExperienceDetail } from '../../data/experience-detail';
 import { ExperienceDetailPipe } from "../experiences/experience-detail.pipe";
+import { Component, Inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-    selector: 'app-experience-detail-dialog',
-    standalone: true,
-    templateUrl: './experience-detail-dialog.component.html',
-    imports: [MatDialogModule, MatDialogContent, ExperienceDetailPipe]
+  selector: 'app-experience-detail-dialog',
+  standalone: true,
+  templateUrl: './experience-detail-dialog.component.html',
+  imports: [MatDialogModule, MatDialogContent, MatButtonModule, ExperienceDetailPipe]
 })
-export class DialogContentExperienceDetail {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ExperienceDetail) { 
+export class DialogContentExperienceDetailComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ExperienceDetail) {
 
   }
 }

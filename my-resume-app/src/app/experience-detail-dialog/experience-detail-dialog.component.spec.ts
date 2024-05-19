@@ -1,33 +1,29 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogContentExperienceDetail } from './experience-detail-dialog.component';
-import { HarnessLoader } from '@angular/cdk/testing';
-import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { DialogContentExperienceDetailComponent } from './experience-detail-dialog.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EXPERIENCES } from '../../data/mock-experiences';
 import { ExperienceDetail } from '../../data/experience-detail';
 
 describe('ExperienceDetailDialogComponent', () => {
-  let component: DialogContentExperienceDetail;
-  let fixture: ComponentFixture<DialogContentExperienceDetail>;
-  let loader: HarnessLoader;
+  let component: DialogContentExperienceDetailComponent;
+  let fixture: ComponentFixture<DialogContentExperienceDetailComponent>;
   let expectedDialogData: ExperienceDetail;
 
   beforeEach(async () => {
     expectedDialogData = EXPERIENCES[0].detail;
 
     await TestBed.configureTestingModule({
-      imports: [DialogContentExperienceDetail],
+      imports: [DialogContentExperienceDetailComponent],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: expectedDialogData}
+        { provide: MAT_DIALOG_DATA, useValue: expectedDialogData }
       ]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(DialogContentExperienceDetail);
+    fixture = TestBed.createComponent(DialogContentExperienceDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    loader = TestbedHarnessEnvironment.loader(fixture);
   });
 
   it('should create', () => {

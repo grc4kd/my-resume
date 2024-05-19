@@ -1,3 +1,7 @@
+.experience .title {
+    font-style: italic;
+}
+
 .experience .dates {
     padding: .5em
 }

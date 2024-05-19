@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
     <span>{{title}}</span>
     <span class="app-toolbar-spacer"></span>
-    <a [href]="gitHubLinkUrl">
+    <a [href]="this.firebaseAppService.gitHubLink.url" class="github-link">
         <mat-icon svgIcon="github" class="app-toolbar-icon" aria-hidden="false" aria-label="Link to personal GitHub icon"></mat-icon>
     </a>
 </mat-toolbar>

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
@@ -6,7 +6,6 @@ import { MatIconModule } from "@angular/material/icon";
 import { ExperiencesComponent } from "./experiences/experiences.component";
 import { HttpClientModule } from '@angular/common/http';
 import { FirebaseAppService } from './services/firebase-app.service';
-import { Subscription } from 'rxjs';
 import { SvgIconService } from './services/svg-icon.service';
 import { Firestore, getFirestore } from 'firebase/firestore';
 import { firebaseConfig } from '../../secrets/firebase-config';
@@ -27,25 +26,13 @@ const db = getFirestore();
     firebaseAppServiceProvider
   ]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
   title = 'my-resume-app';
-  gitHubLinkUrl = '';
-  gitHubLinkSub = new Subscription();
   firebaseAppService: FirebaseAppService;
 
   constructor() {
     this.firebaseAppService = inject(FirebaseAppService);
 
     inject(SvgIconService);
-  }
-
-  ngOnInit(): void {
-    this.gitHubLinkSub = this.firebaseAppService.GitHubLink$.subscribe(webLink => {
-      this.gitHubLinkUrl = webLink.url;
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.gitHubLinkSub.unsubscribe();
   }
 }

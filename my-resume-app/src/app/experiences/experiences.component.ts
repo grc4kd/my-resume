@@ -19,8 +19,6 @@ export class ExperiencesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.firebaseAppService.WorkExperiences$.subscribe(experiences => {
-      this.experiences = experiences;
-    });
+    this.experiences = this.firebaseAppService.workExperiences;
   }
 }

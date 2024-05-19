@@ -10,61 +10,45 @@ import { firebaseConfig } from '../../../secrets/firebase-config';
 import { initializeApp } from 'firebase/app';
 
 describe('FirebaseAppService', () => {
+  let firebaseAppService: FirebaseAppService;
   initializeApp(firebaseConfig);
   const db = getFirestore();
 
   // To avoid tests against a cloud-hosted instance, an emulator is utilized on the same machine
   // running tests.
-
   /** @link https://firebase.google.com/docs/emulator-suite/connect_firestore */
   connectFirestoreEmulator(db, '127.0.0.1', 8080);
 
-  let firebaseAppService: FirebaseAppService;
-
-  beforeEach(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: Firestore, useValue: db },
         firebaseAppServiceProvider
       ],
     });
-
     firebaseAppService = TestBed.inject(FirebaseAppService);
+    await seedMockData(db);
+  })
 
-    seedMockData(db);
+  it('should return a link to GitHub', () => {
+    expect(firebaseAppService.gitHubLink).toEqual(WEBLINK);
   });
 
-  it('should return a link to GitHub', (done: DoneFn) => {
-    firebaseAppService.GitHubLink$.subscribe({
-      next: (link) => {
-        expect(link).toEqual(WEBLINK);
-        done();
-      },
-      error: (err) => fail(err)
-    });
-  });
-
-  it('should return data for work experiences', (done: DoneFn) => {
+  it('should return data for work experiences', () => {
     const expectedExperiences = EXPERIENCES;
 
-    firebaseAppService.WorkExperiences$.subscribe({
-      next: (experiences) => {
-        expect(experiences.length).toBeGreaterThan(0);
+    expect(firebaseAppService.workExperiences.length).toBeGreaterThan(0);
 
-        experiences.forEach((experience) => {
-          const expectedStartTime = experience.startDate.toMillis();
-          const expectedEndTime = experience.endDate.toMillis();
-          const expected = expectedExperiences.find(e => e.title === experience.title && e.startDate.toMillis() === expectedStartTime && e.endDate.toMillis() === expectedEndTime);
-          expect(expected).toBeDefined();
+    firebaseAppService.workExperiences.forEach((experience) => {
+      const expectedStartTime = experience.startDate?.toMillis();
+      const expectedEndTime = experience.endDate?.toMillis();
+      const expected = expectedExperiences.find(e => e.title === experience.title && e.startDate?.toMillis() === expectedStartTime && e.endDate?.toMillis() === expectedEndTime);
+      expect(expected).toBeDefined();
 
-          // narrow type after test for defined
-          if (expected) {
-            expect(experience).toEqual(expected);
-          }
-        });
-        done();
-      },
-      error: (err) => fail(err)
+      // narrow type after test for defined
+      if (expected) {
+        expect(experience).toEqual(expected);
+      }
     });
   });
 });

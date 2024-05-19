@@ -1,13 +1,13 @@
+<h2>Experience</h2>
 <div class="experience">
     @if (experience) {
-        <h1>{{experience.title}}</h1>
-        <h2>{{experience.company}}</h2>
-        <div class="dates">
-            {{experience.startDate.toDate() | date}} - {{experience.endDate.toDate() | date}}
-        </div>
-        <div class="description">
-            {{experience.description}}
-        </div>
-        <button mat-raised-button (click)="openDialog()">Open dialog</button>
+    <h1 class="title">{{experience.title}}</h1>
+    <div class="dates">
+        {{experience.startDate?.toDate() | date}}-{{experience.endDate?.toDate() | date}}
+    </div>
+    <div class="description">
+        {{experience.description}}
+    </div>
+    <button mat-raised-button (click)="openDialog()">More details</button>
     }
 </div>

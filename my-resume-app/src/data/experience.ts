@@ -4,8 +4,8 @@ import { ExperienceDetail } from "./experience-detail";
 export interface Experience {
     title: string;
     description: string;
-    company: string;
-    startDate: Timestamp;
-    endDate: Timestamp;
+    company: string | null;
+    startDate: Timestamp | null;
+    endDate: Timestamp | null;
     detail: ExperienceDetail;
 }
