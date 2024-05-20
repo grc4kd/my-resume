@@ -65,4 +65,10 @@ describe('ExperienceArticleComponent', () => {
     dialogs = await loader.getAllHarnesses(MatDialogHarness);
     expect(dialogs.length).toBe(0);
   });
+
+  it('should display the company in a header section', () => {
+    const experienceArticleElement: HTMLElement = fixture.nativeElement;
+    const h2 = experienceArticleElement.querySelector('h2')!;
+    expect(h2.textContent).toEqual(expectedExperience.company);
+  });
 });
