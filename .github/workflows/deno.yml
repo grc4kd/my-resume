@@ -54,12 +54,12 @@ jobs:
       - name: install node dependencies with npm ci
         run: npm ci
 
+      - name: install firebase dependencies
+        run: npm install firebase
+
       - name: build the Angular project with npm
         # run if a script in package.json is present
         run:  npm run build --if-present
 
       - name: install node dependencies with npm
         run: npm test
-
-      - name:  Run karma tests with Angular CLI
-        run: ng test
