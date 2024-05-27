@@ -45,8 +45,11 @@ jobs:
       - name: Run linter
         run: deno lint
 
-      #- name: Run Deno tests
+      - name: install node dependencies with npm
+        run: npm install
+
+      #- name: Run Angular / karma tests
       #  run: deno test -A
 
-      - name: Run Angular tests with Angular / karma / npm test
-        run: npm test
+      - name:  Run karma tests with Angular CLI
+        run: ng test
