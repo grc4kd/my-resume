@@ -37,6 +37,8 @@ jobs:
       
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
 
       # Uncomment this step to verify the use of 'deno fmt' on each commit.
       # - name: Verify formatting
@@ -45,11 +47,15 @@ jobs:
       - name: Run linter
         run: deno lint
 
-      - name: install node dependencies with npm
-        run: npm install
+      - name: install node dependencies with npm ci
+        run: npm ci
 
-      #- name: Run Angular / karma tests
-      #  run: deno test -A
+      - name: build the Angular project with npm
+        # run if a script in package.json is present
+        run:  npm run build --if-present
+
+      - name: install node dependencies with npm
+        run: npm test
 
       - name:  Run karma tests with Angular CLI
         run: ng test
