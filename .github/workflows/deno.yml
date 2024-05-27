@@ -20,7 +20,7 @@ permissions:
 jobs:
   test:
     runs-on:  ubuntu-latest
-
+    
     defaults:
       run:
         working-directory: ./my-resume-app
@@ -30,10 +30,10 @@ jobs:
         node-version: ['18.x', '20.x']
 
     steps:
-      - shell: bash
+      - name: set FIREBASE_CONFIG from GitHub secret
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: set FIREBASE_CONFIG="$FIREBASE_CONFIG"
+        run: ./writeFirebaseConfig.sh
 
       - name: Setup repo
         uses: actions/checkout@v4
