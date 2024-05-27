@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { FirebaseAppService } from './services/firebase-app.service';
 import { EXPERIENCES } from '../data/mock-experiences';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
   const testGitHubLink = { url: 'https://github.com/' };
@@ -17,7 +19,11 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AppComponent]
+      imports: [AppComponent],
+      providers: [
+        provideHttpClient(), 
+        provideHttpClientTesting()
+      ]
     }).overrideProvider(FirebaseAppService, { useValue: firebaseAppServiceStub });
 
     fixture = TestBed.createComponent(AppComponent);
