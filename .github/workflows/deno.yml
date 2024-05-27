@@ -30,6 +30,11 @@ jobs:
         node-version: ['18.x', '20.x']
 
     steps:
+      - shell: bash
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+        run: set FIREBASE_CONFIG="$FIREBASE_CONFIG"
+
       - name: Setup repo
         uses: actions/checkout@v4
 
