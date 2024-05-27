@@ -16,9 +16,9 @@ export async function seedMockData(db: Firestore) {
   const batch = writeBatch(db);
   EXPERIENCES.forEach(experience => {
     const whitespaceRegex = /\s/gi;
-    let experienceTitleFormat = experience.title.replaceAll(whitespaceRegex, '-').toLowerCase();
-    let startDateFormat = datePipe.transform(experience.startDate?.toDate());
-    let endDateFormat = datePipe.transform(experience.endDate?.toDate());
+    const experienceTitleFormat = experience.title.replaceAll(whitespaceRegex, '-').toLowerCase();
+    const startDateFormat = datePipe.transform(experience.startDate?.toDate());
+    const endDateFormat = datePipe.transform(experience.endDate?.toDate());
 
     batch.set(doc(db, "experiences",
       `mock-${experienceTitleFormat}-${startDateFormat}-${endDateFormat}`), experience);
