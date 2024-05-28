@@ -39,9 +39,9 @@ jobs:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         run: |
           mkdir ./my-resume-app/secrets &&
-          echo "import { FirebaseOptions } from 'firebase/app' \
-          export const firebaseConfig: FirebaseOptions = {\
-            ${{ secrets.FIREBASE_CONFIG }}\
+          echo "import { FirebaseOptions } from 'firebase/app';
+          export const firebaseConfig: FirebaseOptions = {
+            ${{ secrets.FIREBASE_CONFIG }}
           };" > ./my-resume-app/secrets/firebase-config
 
       - name: Setup Deno
