@@ -38,7 +38,7 @@ jobs:
           echo "import { FirebaseOptions } from 'firebase/app' \
           export const firebaseConfig: FirebaseOptions = {\
             ${{ secrets.FIREBASE_CONFIG }}\
-          };"
+          };" > ./my-resume-app/secrets/firebase-config
 
       - name: Setup repo
         uses: actions/checkout@v4
