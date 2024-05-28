@@ -39,10 +39,12 @@ jobs:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         run: |
           mkdir ./my-resume-app/secrets
-          printf "import { FirebaseOptions } from 'firebase/app'\n" &&
-          printf "export const firebaseConfig: FirebaseOptions = {\n" &&
-          printf "${{ secrets.FIREBASE_CONFIG }}\n" &&
-          printf ""};" > ./my-resume-app/secrets/firebase-config.ts
+          cat << EOF > ./my-resume-app/secrets/firebase-config.ts
+          import { FirebaseOptions } from 'firebase/app';
+          export const firebaseConfig: FirebaseOptions = {
+             ${{ secrets.FIREBASE_CONFIG }}
+          };
+          EOF
 
       - name: echo debug
         run: cat ./my-resume-app/secrets/firebase-config.ts
