@@ -71,4 +71,4 @@ jobs:
         run: npm run build --if-present
 
       - name: test Angular project
-        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless
+        run: npm test -- --no-watch --no-progress --browsers=ChromeHeadless
