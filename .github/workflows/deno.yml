@@ -24,15 +24,20 @@ jobs:
     
     defaults:
       run:
+        working-directory: ./my-resume-app
         shell: bash
 
     strategy:
       matrix:
-        node-version: ['18.x', '20.x']
+        node-version: ['20.x']
 
     steps: 
-      - name: Setup repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
       - name: set FIREBASE_CONFIG from GitHub secret
         env:
@@ -46,20 +51,11 @@ jobs:
           };
           EOF
 
-      - name: echo debug
-        run: cat ./my-resume-app/secrets/firebase-config.ts
-
       - name: Setup Deno
         # uses: denoland/setup-deno@v1
         uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31  # v1.1.2
         with:
           deno-version: v1.x
-      
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
           
       # Uncomment this step to verify the use of 'deno fmt' on each commit.
       # - name: Verify formatting

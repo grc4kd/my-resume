@@ -11,12 +11,15 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./my-resume-app
+    
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -27,7 +30,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: continuous testing - npm ci
-      working-directory: ./my-resume-app
       run: npm ci
     - run: npm run build --if-present
     - run: npm test
