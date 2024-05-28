@@ -18,6 +18,8 @@ describe('FirebaseAppService', () => {
   // running tests.
   /** @link https://firebase.google.com/docs/emulator-suite/connect_firestore */
   if (window.location.hostname === 'localhost') {
+    console.log("Running firestore emulator during ng test");
+    console.log("machine window.location.hostname === " + window.location.hostname);
     connectFirestoreEmulator(db, 'localhost', 8080);
   }
 
