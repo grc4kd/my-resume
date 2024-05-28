@@ -36,7 +36,7 @@ describe('FirebaseAppService', () => {
         firebaseAppServiceSpy.getGitHubLink.and.returnValue(of(WEBLINK));
         firebaseAppServiceSpy.getExperiences.and.returnValue(of(EXPERIENCES));
         
-        TestBed.overrideProvider(FirebaseAppService, firebaseAppServiceSpy);
+        TestBed.overrideProvider(firebaseAppServiceProvider, firebaseAppServiceSpy);
       }
 
       firebaseAppService = TestBed.inject(FirebaseAppService);
@@ -72,7 +72,7 @@ describe('FirebaseAppService', () => {
             expect(experience).toEqual(expected);
           }
         });
-        
+
         done();
       },
       error: done.fail
