@@ -17,7 +17,10 @@ describe('FirebaseAppService', () => {
   // To avoid tests against a cloud-hosted instance, an emulator is utilized on the same machine
   // running tests.
   /** @link https://firebase.google.com/docs/emulator-suite/connect_firestore */
-  connectFirestoreEmulator(db, '127.0.0.1', 8080);
+  console.log(window.location.hostname);
+  if (window.location.hostname === 'localhost') {
+    connectFirestoreEmulator(db, 'localhost', 8080);
+  }
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -31,11 +34,11 @@ describe('FirebaseAppService', () => {
   })
 
   // these tests are disabled for CI runner, could replace with mocks or emulators
-  xit('should return a link to GitHub', () => {
+  it('should return a link to GitHub', () => {
     expect(firebaseAppService.gitHubLink).toEqual(WEBLINK);
   });
 
-  xit('should return data for work experiences', () => {
+  it('should return data for work experiences', () => {
     const expectedExperiences = EXPERIENCES;
 
     expect(firebaseAppService.workExperiences.length).toBeGreaterThan(0);
