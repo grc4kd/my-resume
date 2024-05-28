@@ -1,9 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { FirebaseAppService } from './services/firebase-app.service';
-import { EXPERIENCES } from '../data/mock-experiences';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { defer, of } from 'rxjs';
+import { EXPERIENCES } from '../data/mock-experiences';
+
+/**
+ * Create async observable that emits-once and completes
+ * after a JS engine turn
+ */
+export function asyncData<T>(data: T) {
+  return defer(() => Promise.resolve(data));
+}
 
 describe('AppComponent', () => {
   const testGitHubLink = { url: 'https://github.com/' };
@@ -12,10 +21,9 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let gitHubLinkEl: HTMLAnchorElement;
 
-  const firebaseAppServiceStub: Partial<FirebaseAppService> = {
-    gitHubLink: testGitHubLink,
-    workExperiences: EXPERIENCES
-  };
+  const firebaseAppServiceSpy = jasmine.createSpyObj('FirebaseAppService', ['getGitHubLink', 'getExperiences']);
+  firebaseAppServiceSpy.getGitHubLink.and.returnValue(of(testGitHubLink));
+  firebaseAppServiceSpy.getExperiences.and.returnValue(of(EXPERIENCES));
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -24,11 +32,12 @@ describe('AppComponent', () => {
         provideHttpClient(), 
         provideHttpClientTesting()
       ]
-    }).overrideProvider(FirebaseAppService, { useValue: firebaseAppServiceStub });
+    });
+
+    TestBed.overrideProvider(FirebaseAppService, {useValue: firebaseAppServiceSpy});
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-    gitHubLinkEl = fixture.nativeElement.querySelector('.github-link');
   });
 
   it('should create the app', () => {
@@ -40,10 +49,15 @@ describe('AppComponent', () => {
     expect(component.title).toEqual('my-resume-app');
   });
 
-  it('should have initialized the webLink data from Firebase after input properties are set', () => {
-    expect(gitHubLinkEl.href).toBe('');
-    
+  it('should have initialized the webLink data from Firebase after input properties are set', waitForAsync(() => {
     fixture.detectChanges();
-    expect(gitHubLinkEl.href).toBe(testGitHubLink.url);
-  });
+    
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      gitHubLinkEl = fixture.nativeElement.querySelector('.github-link');
+      
+      expect(gitHubLinkEl.href).toBe(testGitHubLink.url);
+    })
+
+  }));
 });

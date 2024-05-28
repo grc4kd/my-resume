@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Experience } from '../../data/experience';
 import { ExperienceArticleComponent } from '../experience-article/experience-article.component';
 import { FirebaseAppService } from '../services/firebase-app.service';
+import { Subscription, from } from 'rxjs';
 
 @Component({
   selector: 'app-experiences',
@@ -10,15 +11,18 @@ import { FirebaseAppService } from '../services/firebase-app.service';
   templateUrl: './experiences.component.html',
   styleUrl: './experiences.component.css'
 })
-export class ExperiencesComponent implements OnInit {
+export class ExperiencesComponent implements OnDestroy {
   title = "Work Experience";
   experiences: Experience[] = [];
+  experiencesSubscription: Subscription;
 
   constructor(private firebaseAppService: FirebaseAppService) {
-
+    this.experiencesSubscription = from(firebaseAppService.getExperiences()).subscribe(experiences => {
+      this.experiences = experiences;
+    })
   }
 
-  ngOnInit(): void {
-    this.experiences = this.firebaseAppService.workExperiences;
+  ngOnDestroy(): void {
+    this.experiencesSubscription.unsubscribe();
   }
 }

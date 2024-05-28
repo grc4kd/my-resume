@@ -5,7 +5,7 @@ import { FirebaseAppService } from '../services/firebase-app.service';
 import { EXPERIENCES } from '../../data/mock-experiences';
 
 const firebaseAppServiceStub: Partial<FirebaseAppService> = {
-  workExperiences: EXPERIENCES
+  getExperiences: async () => EXPERIENCES
 }
 
 describe('ExperiencesComponent', () => {
