@@ -24,36 +24,42 @@ jobs:
     
     defaults:
       run:
-        working-directory: ./my-resume-app
+        shell: bash
 
     strategy:
       matrix:
-        node-version: ['18.x']
+        node-version: ['18.x', '20.x']
 
     steps: 
-      - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+      - name: Setup repo
+        uses: actions/checkout@v4
 
-      - name: set firebaseConfig from GitHub secret
+      - name: set FIREBASE_CONFIG from GitHub secret
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         run: |
-          mkdir secrets;
-          cat << EOF > ./secrets/firebase-config.ts
+          mkdir ./my-resume-app/secrets
+          cat << EOF > ./my-resume-app/secrets/firebase-config.ts
           import { FirebaseOptions } from 'firebase/app';
           export const firebaseConfig: FirebaseOptions = {
              ${{ secrets.FIREBASE_CONFIG }}
           };
           EOF
 
+      - name: echo debug
+        run: cat ./my-resume-app/secrets/firebase-config.ts
+
       - name: Setup Deno
         # uses: denoland/setup-deno@v1
         uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31  # v1.1.2
         with:
           deno-version: v1.x
-          
+      
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
       # Uncomment this step to verify the use of 'deno fmt' on each commit.
       # - name: Verify formatting
       #   run: deno fmt --check
@@ -62,17 +68,21 @@ jobs:
         run: deno lint
 
       - name: install node dependencies with npm ci
-        run: npm install
+        working-directory: ./my-resume-app
+        run: npm ci
 
       - name: install firebase dependencies
+        working-directory: ./my-resume-app
         run: npm install firebase
-      
-      - name: install Chrome
-        run: npm install -g chrome
 
       - name: build the Angular project with npm
+        working-directory: ./my-resume-app
         # run if a script in package.json is present
         run: npm run build --if-present
 
+      - name: install Chrome
+        run: npm install -g chrome
+
       - name: install node dependencies with npm
-        run: npm test --no-watch --browsers=ChromeHeadless
+        working-directory: ./my-resume-app  
+        run: npm test
