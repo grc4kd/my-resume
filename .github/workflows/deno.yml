@@ -68,13 +68,10 @@ jobs:
 
       - name: install firebase dependencies
         run: npm install firebase
-      
-      - name: install Chrome
-        run: npm install -g chrome
 
       - name: build the Angular project with npm
         # run if a script in package.json is present
         run: npm run build --if-present
 
       - name: install node dependencies with npm
-        run: npm run test --no-watch --browsers=ChromeHeadless
+        run: npm run test -- --no-watch --browsers=ChromeHeadless
