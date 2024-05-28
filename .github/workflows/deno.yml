@@ -77,4 +77,4 @@ jobs:
         run: npm run build --if-present
 
       - name: install node dependencies with npm
-        run: npm test --no-watch --browsers=ChromeHeadless
+        run: npm run test --no-watch --browsers=ChromeHeadless
