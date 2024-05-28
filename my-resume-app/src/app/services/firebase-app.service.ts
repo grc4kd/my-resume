@@ -20,16 +20,19 @@ export class FirebaseAppService {
         );
     }
 
-    public async getExperiences(): Promise<Experience[]> {
-        const workExperiences: Experience[] = [];
-        
-        const experienceQuery = query(collection(this.db, "experiences"));
-        const querySnapshot = await getDocs(experienceQuery);
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            workExperiences.push(doc.data() as Experience);
-        });
+    public getExperiences(): Observable<Experience[]> {        
+        return from(getDocs(query(collection(this.db, "experiences"))))
+        .pipe(
+            map(querySnapshot => {
+                const workExperiences: Experience[] = [];
+                
+                querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    workExperiences.push(doc.data() as Experience);
+                });
 
-        return workExperiences;
+                return workExperiences;
+            })
+        );
     }
 }

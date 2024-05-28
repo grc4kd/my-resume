@@ -8,7 +8,7 @@ import { TestBed } from '@angular/core/testing';
 import { firebaseAppServiceProvider } from './firebase-app.service.provider';
 import { firebaseConfig } from '../../../secrets/firebase-config';
 import { initializeApp } from 'firebase/app';
-import { from, of } from 'rxjs';
+import { of } from 'rxjs';
 
 describe('FirebaseAppService', () => {
   let firebaseAppService: FirebaseAppService;
@@ -34,7 +34,7 @@ describe('FirebaseAppService', () => {
       if (window.location.hostname !== 'localhost') {
         const firebaseAppServiceSpy = jasmine.createSpyObj('FirebaseAppService', ['getGitHubLink', 'getExperiences']);
         firebaseAppServiceSpy.getGitHubLink.and.returnValue(of(WEBLINK));
-        firebaseAppServiceSpy.getExperiences.and.returnValue(from(EXPERIENCES));
+        firebaseAppServiceSpy.getExperiences.and.returnValue(of(EXPERIENCES));
         
         TestBed.overrideProvider(FirebaseAppService, firebaseAppServiceSpy);
       }
@@ -54,22 +54,28 @@ describe('FirebaseAppService', () => {
     });
   });
 
-  it('should return data for work experiences', async () => {
+  it('should return data for work experiences', (done: DoneFn) => {
     const expectedExperiences = EXPERIENCES;
 
-    const actualExperiences = await firebaseAppService.getExperiences();
-    expect(actualExperiences.length).toBeGreaterThan(0);
-
-    actualExperiences.forEach((experience) => {
-      const expectedStartTime = experience.startDate?.toMillis();
-      const expectedEndTime = experience.endDate?.toMillis();
-      const expected = expectedExperiences.find(e => e.title === experience.title && e.startDate?.toMillis() === expectedStartTime && e.endDate?.toMillis() === expectedEndTime);
-      expect(expected).toBeDefined();
-
-      // narrow type after test for defined
-      if (expected) {
-        expect(experience).toEqual(expected);
-      }
+    firebaseAppService.getExperiences().subscribe({
+      next: (experiences) => {
+        expect(experiences.length).toBeGreaterThan(0);
+    
+        experiences.forEach((experience) => {
+          const expectedStartTime = experience.startDate?.toMillis();
+          const expectedEndTime = experience.endDate?.toMillis();
+          const expected = expectedExperiences.find(e => e.title === experience.title && e.startDate?.toMillis() === expectedStartTime && e.endDate?.toMillis() === expectedEndTime);
+          expect(expected).toBeDefined();
+    
+          // narrow type after test for defined
+          if (expected) {
+            expect(experience).toEqual(expected);
+          }
+        });
+        
+        done();
+      },
+      error: done.fail
     });
   });
 });

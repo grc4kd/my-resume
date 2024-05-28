@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
 import { ExperiencesComponent } from './experiences.component';
 import { FirebaseAppService } from '../services/firebase-app.service';
 import { EXPERIENCES } from '../../data/mock-experiences';
 
 const firebaseAppServiceStub: Partial<FirebaseAppService> = {
-  getExperiences: () => Promise.resolve(EXPERIENCES)
+  getExperiences: () => of(EXPERIENCES)
 }
 
 describe('ExperiencesComponent', () => {
