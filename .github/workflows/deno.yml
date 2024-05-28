@@ -9,6 +9,7 @@
 name: Lint App with Deno / Build and test Angular App with Angular ng test/karma
 
 on:
+  workflow_dispatch: 
   push:
     branches: ["main"]
   pull_request:
