@@ -85,4 +85,4 @@ jobs:
 
       - name: install node dependencies with npm
         working-directory: ./my-resume-app  
-        run: npm test
+        run: npm test --no-watch --no-progress --browsers=ChromeHeadless
