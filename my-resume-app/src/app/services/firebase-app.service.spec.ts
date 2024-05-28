@@ -30,7 +30,11 @@ describe('FirebaseAppService', () => {
       ],
     });
     firebaseAppService = TestBed.inject(FirebaseAppService);
-    await seedMockData(db);
+    
+    // checking hostname again to run inside beforeEach async zone
+    if (window.location.hostname === 'localhost') {
+      await seedMockData(db);
+    }
   })
 
   // these tests are disabled for CI runner, could replace with mocks or emulators
