@@ -1,0 +1,6 @@
+{
+    "lint": {
+        "include": ["my-resume-app/"],
+        "exclude": ["my-resume-app/secrets/firebase-config.ts"]
+    }
+}
