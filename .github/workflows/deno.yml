@@ -40,8 +40,9 @@ jobs:
         run: |
           mkdir ./my-resume-app/secrets &&
           echo "import { FirebaseOptions } from 'firebase/app';
-          export const firebaseConfig: FirebaseOptions = 
-          {${{ secrets.FIREBASE_CONFIG }}}" > ./my-resume-app/secrets/firebase-config.ts
+          export const firebaseConfig: FirebaseOptions = {
+             ${{ secrets.FIREBASE_CONFIG }}
+          };" > ./my-resume-app/secrets/firebase-config.ts
 
       - name: echo debug
         run: cat ./my-resume-app/secrets/firebase-config.ts
