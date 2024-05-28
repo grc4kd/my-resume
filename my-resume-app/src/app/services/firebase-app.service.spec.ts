@@ -20,28 +20,30 @@ describe('FirebaseAppService', () => {
   /** @link https://firebase.google.com/docs/emulator-suite/connect_firestore */
   if (window.location.hostname === 'localhost') {
     connectFirestoreEmulator(db, 'localhost', 8080);
-  
-    beforeAll(() => {
-      TestBed.configureTestingModule({
-        providers: [
-          { provide: Firestore, useValue: db },
-          firebaseAppServiceProvider
-        ],
-      });
-
-      seedMockData(db);
-
-      if (window.location.hostname !== 'localhost') {
-        const firebaseAppServiceSpy = jasmine.createSpyObj('FirebaseAppService', ['getGitHubLink', 'getExperiences']);
-        firebaseAppServiceSpy.getGitHubLink.and.returnValue(of(WEBLINK));
-        firebaseAppServiceSpy.getExperiences.and.returnValue(of(EXPERIENCES));
-        
-        TestBed.overrideProvider(FirebaseAppService, {useValue: firebaseAppServiceSpy});
-      }
-
-      firebaseAppService = TestBed.inject(FirebaseAppService);
-    });
   }
+
+  beforeAll(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: Firestore, useValue: db },
+        firebaseAppServiceProvider
+      ],
+    });
+
+    if (window.location.hostname === 'localhost') {
+      seedMockData(db);
+    }
+
+    if (window.location.hostname !== 'localhost') {
+      const firebaseAppServiceSpy = jasmine.createSpyObj('FirebaseAppService', ['getGitHubLink', 'getExperiences']);
+      firebaseAppServiceSpy.getGitHubLink.and.returnValue(of(WEBLINK));
+      firebaseAppServiceSpy.getExperiences.and.returnValue(of(EXPERIENCES));
+      
+      TestBed.overrideProvider(FirebaseAppService, {useValue: firebaseAppServiceSpy});
+    }
+
+    firebaseAppService = TestBed.inject(FirebaseAppService);
+  });
 
   // these tests are disabled for CI runner, could replace with mocks or emulators
   it('should return a link to GitHub', (done: DoneFn) => {
