@@ -73,5 +73,5 @@ jobs:
         # run if a script in package.json is present
         run: npm run build --if-present
 
-      - name: install node dependencies with npm
+      - name: test Angular project except Firebase tests
         run: npm run test -- --no-watch --browsers=ChromeHeadless --exclude ./src/app/services/**.spec.ts"
