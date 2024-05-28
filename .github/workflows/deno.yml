@@ -78,8 +78,11 @@ jobs:
       - name: build the Angular project with npm
         working-directory: ./my-resume-app
         # run if a script in package.json is present
-        run:  npm run build --if-present
+        run: npm run build --if-present
+
+      - name: install Chrome
+        run: npm install -g chrome
 
       - name: install node dependencies with npm
         working-directory: ./my-resume-app  
-        run: npm test --no-progress --no-watch --browsers="ChromeHeadless"
+        run: npm test
