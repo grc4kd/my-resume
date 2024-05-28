@@ -77,4 +77,4 @@ jobs:
         run: npm install -g chrome
 
       - name: install node dependencies with npm
-        run: npm test
+        run: npm test --no-watch --browsers=ChromeHeadless
