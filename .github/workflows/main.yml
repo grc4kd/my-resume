@@ -17,4 +17,3 @@ jobs:
     steps:
       - name: echo hello world
         run: echo "Hello world"
-    s
