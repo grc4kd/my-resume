@@ -74,4 +74,4 @@ jobs:
         run: npm run build --if-present
 
       - name: test Angular project except Firebase tests
-        run: npm run test -- --no-watch --browsers=ChromeHeadless --exclude ./src/app/services/**.spec.ts
+        run: npm run test -- "--no-watch --browsers=ChromeHeadless --exclude ./src/app/services/**.spec.ts"
