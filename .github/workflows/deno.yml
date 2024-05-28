@@ -22,7 +22,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     environment: 
-      name: testing
+      name: workflow
       url: https://github.com
     env:
       ON_GITHUB_RUNNER: true
@@ -68,7 +68,7 @@ jobs:
         run: deno lint
 
       - name: install node dependencies with npm ci
-        run: npm ci
+        run: npm ci -c workflow
 
       - name: build the Angular project with npm
         # run if a script in package.json is present
