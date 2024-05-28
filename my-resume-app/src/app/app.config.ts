@@ -4,13 +4,11 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app.routes';
-import { firebaseAppServiceProvider } from './services/firebase-app.service.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimationsAsync(),
-    provideHttpClient(),
-    firebaseAppServiceProvider
+    provideHttpClient()
   ],
 };

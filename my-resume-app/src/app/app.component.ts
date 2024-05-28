@@ -10,7 +10,6 @@ import { ExperiencesComponent } from "./experiences/experiences.component";
 import { FirebaseAppService } from './services/firebase-app.service';
 import { SvgIconService } from './services/svg-icon.service';
 import { firebaseConfig } from '../../secrets/firebase-config';
-import { firebaseAppServiceProvider } from './services/firebase-app.service.provider';
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
@@ -22,17 +21,16 @@ const db = getFirestore();
   styleUrl: './app.component.css',
   imports: [RouterOutlet, MatToolbarModule, MatIconModule, ExperiencesComponent, AsyncPipe],
   providers: [
-    { provide: Firestore, useValue: db },
-    firebaseAppServiceProvider
+    { provide: Firestore, useValue: db }
   ]
 })
 export class AppComponent implements OnInit {
   title = 'my-resume-app';
-  firebaseAppService: FirebaseAppService;
   gitHubUrl: string = '';
 
+  private firebaseAppService = inject(FirebaseAppService);
+
   constructor() {
-    this.firebaseAppService = inject(FirebaseAppService);
     inject(SvgIconService);
   }
 
