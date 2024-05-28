@@ -3,16 +3,13 @@ name: Sample shell script workflow
 on:
   workflow_dispatch
 
-permissions:
-  contents: read
-
 jobs:
   run_echo:
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        shell: base
+        shell: bash
 
     steps:
       - name: echo hello world
