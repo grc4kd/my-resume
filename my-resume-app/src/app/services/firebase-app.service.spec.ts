@@ -8,7 +8,7 @@ import { TestBed } from '@angular/core/testing';
 import { firebaseAppServiceProvider } from './firebase-app.service.provider';
 import { firebaseConfig } from '../../../secrets/firebase-config';
 import { initializeApp } from 'firebase/app';
-import { of } from 'rxjs';
+import { from, of } from 'rxjs';
 
 describe('FirebaseAppService', () => {
   let firebaseAppService: FirebaseAppService;
@@ -34,7 +34,7 @@ describe('FirebaseAppService', () => {
       if (window.location.hostname !== 'localhost') {
         const firebaseAppServiceSpy = jasmine.createSpyObj('FirebaseAppService', ['getGitHubLink', 'getExperiences']);
         firebaseAppServiceSpy.getGitHubLink.and.returnValue(of(WEBLINK));
-        firebaseAppServiceSpy.getExperiences.and.returnValue(of(EXPERIENCES));
+        firebaseAppServiceSpy.getExperiences.and.returnValue(from(EXPERIENCES));
         
         TestBed.overrideProvider(FirebaseAppService, firebaseAppServiceSpy);
       }
