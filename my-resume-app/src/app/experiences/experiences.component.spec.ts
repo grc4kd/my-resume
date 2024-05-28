@@ -5,15 +5,15 @@ import { FirebaseAppService } from '../services/firebase-app.service';
 import { EXPERIENCES } from '../../data/mock-experiences';
 
 const firebaseAppServiceStub: Partial<FirebaseAppService> = {
-  getExperiences: async () => EXPERIENCES
+  getExperiences: () => Promise.resolve(EXPERIENCES)
 }
 
 describe('ExperiencesComponent', () => {
   let component: ExperiencesComponent;
   let fixture: ComponentFixture<ExperiencesComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       imports: [ExperiencesComponent],
       providers: [{ provide: FirebaseAppService, useValue: firebaseAppServiceStub }]
     })

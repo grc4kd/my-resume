@@ -1,5 +1,5 @@
 import { EXPERIENCES } from '../src/data/mock-experiences';
-import { Firestore, collection, doc, getDoc, getDocs, query, setDoc, writeBatch } from 'firebase/firestore';
+import { Firestore, doc, setDoc, writeBatch } from 'firebase/firestore';
 import { DatePipe } from '@angular/common';
 import { WEBLINK } from '../src/data/mockWebLinks';
 

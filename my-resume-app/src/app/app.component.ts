@@ -1,16 +1,16 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
+import { Firestore, getFirestore } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import { AsyncPipe } from '@angular/common';
 
 import { ExperiencesComponent } from "./experiences/experiences.component";
 import { FirebaseAppService } from './services/firebase-app.service';
 import { SvgIconService } from './services/svg-icon.service';
-import { Firestore, getFirestore } from 'firebase/firestore';
 import { firebaseConfig } from '../../secrets/firebase-config';
-import { initializeApp } from 'firebase/app';
 import { firebaseAppServiceProvider } from './services/firebase-app.service.provider';
-import { AsyncPipe } from '@angular/common';
 
 initializeApp(firebaseConfig);
 const db = getFirestore();

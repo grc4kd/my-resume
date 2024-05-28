@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 
-import { DocumentData, DocumentSnapshot, Firestore, collection, doc, getDoc, getDocs, query } from "firebase/firestore";
+import { Firestore, collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 
 import { WebLink } from "../../data/webLink";
 import { Experience } from "../../data/experience";
-import { Observable, filter, from, map, of } from "rxjs";
+import { Observable, filter, from, map } from "rxjs";
 
 @Injectable({
     providedIn: 'root',

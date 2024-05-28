@@ -4,7 +4,7 @@ import { Firestore, connectFirestoreEmulator, getFirestore } from 'firebase/fire
 import { seedMockData } from '../../../seeding/seedMockData';
 import { EXPERIENCES } from '../../data/mock-experiences';
 import { WEBLINK } from '../../data/mockWebLinks';
-import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { firebaseAppServiceProvider } from './firebase-app.service.provider';
 import { firebaseConfig } from '../../../secrets/firebase-config';
 import { initializeApp } from 'firebase/app';
