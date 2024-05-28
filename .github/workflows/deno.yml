@@ -21,7 +21,12 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+    environment: 
+      name: testing
+      url: https://github.com
+    env:
+      ON_GITHUB_RUNNER: true
+
     defaults:
       run:
         working-directory: ./my-resume-app

@@ -17,7 +17,7 @@ describe('FirebaseAppService', () => {
   // To avoid tests against a cloud-hosted instance, an emulator is utilized on the same machine
   // running tests.
   /** @link https://firebase.google.com/docs/emulator-suite/connect_firestore */
-  if (window.location.hostname === 'localhost') {
+  if (process.env['ON_GITHUB_RUNNER']) {
     console.log("Running firestore emulator during ng test");
     console.log("machine window.location.hostname === " + window.location.hostname);
     connectFirestoreEmulator(db, 'localhost', 8080);
@@ -30,11 +30,11 @@ describe('FirebaseAppService', () => {
       ],
     });
 
-    if (window.location.hostname === 'localhost') {
+    if (process.env['ON_GITHUB_RUNNER']) {
       seedMockData(db);
     }
 
-    if (window.location.hostname !== 'localhost') {
+    if (process.env['ON_GITHUB_RUNNER']) {
       const firebaseAppServiceSpy = jasmine.createSpyObj('FirebaseAppService', ['getGitHubLink', 'getExperiences']);
       firebaseAppServiceSpy.getGitHubLink.and.returnValue(of(WEBLINK));
       firebaseAppServiceSpy.getExperiences.and.returnValue(of(EXPERIENCES));
