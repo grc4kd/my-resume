@@ -64,10 +64,7 @@ jobs:
         run: deno lint
 
       - name: install node dependencies with npm ci
-        run: npm install
-
-      - name: install firebase dependencies
-        run: npm install firebase
+        run: npm ci
 
       - name: build the Angular project with npm
         # run if a script in package.json is present
