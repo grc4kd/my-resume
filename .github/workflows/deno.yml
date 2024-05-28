@@ -40,7 +40,7 @@ jobs:
 
       - name: set FIREBASE_CONFIG from GitHub secret
         env:
-          FIREBASE_CONFIG: "${{ secrets.FIREBASE_CONFIG }}"
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         run: |
           mkdir secrets;
           cat << 'END' > ./secrets/firebase-config.ts
