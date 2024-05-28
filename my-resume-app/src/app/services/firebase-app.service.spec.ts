@@ -8,6 +8,7 @@ import { TestBed } from '@angular/core/testing';
 import { firebaseConfig } from '../../../secrets/firebase-config';
 import { initializeApp } from 'firebase/app';
 import { of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 describe('FirebaseAppService', () => {
   let firebaseAppService: FirebaseAppService;
@@ -17,7 +18,7 @@ describe('FirebaseAppService', () => {
   // To avoid tests against a cloud-hosted instance, an emulator is utilized on the same machine
   // running tests.
   /** @link https://firebase.google.com/docs/emulator-suite/connect_firestore */
-  if (process.env['ON_GITHUB_RUNNER']) {
+  if (environment.useFirebaseEmulator) {
     console.log("Running firestore emulator during ng test");
     console.log("machine window.location.hostname === " + window.location.hostname);
     connectFirestoreEmulator(db, 'localhost', 8080);
@@ -30,11 +31,11 @@ describe('FirebaseAppService', () => {
       ],
     });
 
-    if (process.env['ON_GITHUB_RUNNER']) {
+    if (environment.useFirebaseEmulator) {
       seedMockData(db);
     }
 
-    if (process.env['ON_GITHUB_RUNNER']) {
+    if (!environment.useFirebaseEmulator) {
       const firebaseAppServiceSpy = jasmine.createSpyObj('FirebaseAppService', ['getGitHubLink', 'getExperiences']);
       firebaseAppServiceSpy.getGitHubLink.and.returnValue(of(WEBLINK));
       firebaseAppServiceSpy.getExperiences.and.returnValue(of(EXPERIENCES));
