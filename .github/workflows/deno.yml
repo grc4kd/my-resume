@@ -34,7 +34,11 @@ jobs:
       - name: set FIREBASE_CONFIG from GitHub secret
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: echo ${{ secrets.FIREBASE_CONFIG }} > ./secrets/firebase-config.ts
+        run: |
+          echo "import { FirebaseOptions } from 'firebase/app' \
+          export const firebaseConfig: FirebaseOptions = {\
+            ${{ secrets.FIREBASE_CONFIG }}\
+          };"
 
       - name: Setup repo
         uses: actions/checkout@v4
