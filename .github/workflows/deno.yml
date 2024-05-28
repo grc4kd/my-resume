@@ -41,7 +41,7 @@ jobs:
           mkdir ./my-resume-app/secrets &&
           echo "import { FirebaseOptions } from 'firebase/app';
           export const firebaseConfig: FirebaseOptions = {
-             ${{ secrets.FIREBASE_CONFIG }}
+             "${{ secrets.FIREBASE_CONFIG }}"
           };" > ./my-resume-app/secrets/firebase-config.ts
 
       - name: echo debug
