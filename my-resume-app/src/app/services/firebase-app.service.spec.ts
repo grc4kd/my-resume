@@ -36,7 +36,7 @@ describe('FirebaseAppService', () => {
         firebaseAppServiceSpy.getGitHubLink.and.returnValue(of(WEBLINK));
         firebaseAppServiceSpy.getExperiences.and.returnValue(of(EXPERIENCES));
         
-        TestBed.overrideProvider(firebaseAppServiceProvider, {useValue: firebaseAppServiceSpy});
+        TestBed.overrideProvider(FirebaseAppService, {useValue: firebaseAppServiceSpy});
       }
 
       firebaseAppService = TestBed.inject(FirebaseAppService);
