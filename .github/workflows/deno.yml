@@ -42,7 +42,7 @@ jobs:
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         run: |
-          mkdir ./my-resume-app/secrets
+          mkdir -p ./my-resume-app/secrets
           cat << EOF > ./my-resume-app/secrets/firebase-config.ts
           import { FirebaseOptions } from 'firebase/app';
           export const firebaseConfig: FirebaseOptions = {
