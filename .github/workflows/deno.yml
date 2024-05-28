@@ -34,6 +34,16 @@ jobs:
       - name: Setup repo
         uses: actions/checkout@v4
 
+      - name: set FIREBASE_CONFIG from GitHub secret
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+        run: |
+          mkdir ./my-resume-app/secrets &&
+          echo "import { FirebaseOptions } from 'firebase/app';
+          export const firebaseConfig: FirebaseOptions = {
+            ${{ secrets.FIREBASE_CONFIG }}
+          };" > ./my-resume-app/secrets/firebase-config.ts
+
       - name: Setup Deno
         # uses: denoland/setup-deno@v1
         uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31  # v1.1.2
@@ -59,16 +69,6 @@ jobs:
       - name: install firebase dependencies
         working-directory: ./my-resume-app
         run: npm install firebase
-
-      - name: set FIREBASE_CONFIG from GitHub secret
-        env:
-          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: |
-          mkdir ./my-resume-app/secrets &&
-          echo "import { FirebaseOptions } from 'firebase/app';
-          export const firebaseConfig: FirebaseOptions = {
-            ${{ secrets.FIREBASE_CONFIG }}
-          };" > ./my-resume-app/secrets/firebase-config
 
       - name: build the Angular project with npm
         working-directory: ./my-resume-app
