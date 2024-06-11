@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 
-import { Firestore, collection, doc, getDoc, getDocs, query } from "firebase/firestore";
+import { Firestore, collection, doc, getDoc, getDocs, getFirestore, query } from "firebase/firestore";
 
 import { WebLink } from "../../data/webLink";
 import { Experience } from "../../data/experience";
@@ -10,7 +10,11 @@ import { Observable, filter, from, map } from "rxjs";
     providedIn: 'root',
 })
 export class FirebaseAppService {
-    constructor(private db: Firestore) {}
+    private readonly db: Firestore;
+
+    constructor() {
+        this.db = getFirestore();
+    }
 
     public getGitHubLink(): Observable<WebLink> {
         return from(getDoc(doc(this.db, "web-links", "github")))
