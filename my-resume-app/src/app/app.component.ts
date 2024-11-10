@@ -1,10 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
 import { Firestore, getFirestore } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
-import { AsyncPipe } from '@angular/common';
 
 import { ExperiencesComponent } from "./experiences/experiences.component";
 import { FirebaseAppService } from './services/firebase-app.service';
@@ -19,7 +17,11 @@ const db = getFirestore();
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RouterOutlet, MatToolbarModule, MatIconModule, ExperiencesComponent, AsyncPipe],
+  imports: [
+    MatToolbarModule,
+    MatIconModule,
+    ExperiencesComponent,
+  ],
   providers: [
     { provide: Firestore, useValue: db }
   ]
