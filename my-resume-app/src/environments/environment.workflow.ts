@@ -1,4 +1,6 @@
 export const environment = {
     production: false,
-    useFirebaseEmulator: false
+    useFirebaseEmulator: false,
+    useAppCheck: true,
+    useAppCheckDebugToken: true
 }
