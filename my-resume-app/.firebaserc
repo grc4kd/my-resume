@@ -1,14 +1,5 @@
 {
-  "targets": {
-    "my-resume-82a38": {
-      "hosting": {
-        "my-resume-app": [
-          "my-resume-82a38"
-        ]
-      }
-    }
-  },
   "projects": {
-    "default": "my-resume-82a38"
+    "default": "red-parity-369703"
   }
 }
