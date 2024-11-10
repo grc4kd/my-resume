@@ -72,7 +72,7 @@ jobs:
 
       - name: build the Angular project with npm
         # run if a script in package.json is present
-        run: npm run build -c workflow --if-present --configuration workflow
+        run: npm run workflow-build --if-present
 
       - name: test Angular project
-        run: npm test -c workflow -- --no-watch --no-progress --browsers=ChromeHeadless
+        run: npm run workflow-test
