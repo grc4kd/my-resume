@@ -33,7 +33,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: ['18.x', '20.x']
+        node-version: ['22.x']
 
     steps: 
       - uses: actions/checkout@v4
@@ -72,7 +72,7 @@ jobs:
 
       - name: build the Angular project with npm
         # run if a script in package.json is present
-        run: npm run build --if-present
+        run: npm run build -c workflow --if-present --configuration workflow
 
       - name: test Angular project
-        run: npm test -- --no-watch --no-progress --browsers=ChromeHeadless
+        run: npm test -c workflow -- --no-watch --no-progress --browsers=ChromeHeadless
