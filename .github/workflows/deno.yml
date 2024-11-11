@@ -61,7 +61,7 @@ jobs:
         run: |
           mkdir -p secrets;
           cat << EOF > ./secrets/app-check-config.ts
-          export const appCheckSiteKey = $(echo "$APP_CHECK_SITE_KEY");
+          export const appCheckSiteKey = $(echo "\"$APP_CHECK_SITE_KEY\"");
           EOF
 
       - name: Setup Deno
