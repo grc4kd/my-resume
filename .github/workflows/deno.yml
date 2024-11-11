@@ -26,6 +26,7 @@ jobs:
       url: https://github.com
     env:
       ON_GITHUB_RUNNER: true
+      APP_CHECK_DEBUG_TOKEN_FROM_CI: ${{ secrets.APP_CHECK_DEBUG_TOKEN_FROM_CI }}
 
     defaults:
       run:
