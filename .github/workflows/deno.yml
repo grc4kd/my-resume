@@ -47,12 +47,21 @@ jobs:
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         run: |
-          mkdir secrets;
+          mkdir -p secrets;
           cat << EOF > ./secrets/firebase-config.ts
           import { FirebaseOptions } from 'firebase/app';
           export const firebaseConfig: FirebaseOptions = {
              $(echo "$FIREBASE_CONFIG")
           };
+          EOF
+
+      - name: set APP_CHECK_SITE_KEY from GitHub secret
+        env:
+          APP_CHECK_SITE_KEY: ${{ secrets.APP_CHECK_SITE_KEY }}
+        run: |
+          mkdir -p secrets;
+          cat << EOF > ./secrets/app-check-config.ts
+          export const appCheckSiteKey = $(echo "\"$APP_CHECK_SITE_KEY\"");
           EOF
 
       - name: Setup Deno
