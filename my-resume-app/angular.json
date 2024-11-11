@@ -68,6 +68,17 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]              
+            },
+            "workflow": {
+              "optimization": true,
+              "extractLicenses": false,
+              "sourceMap": false,
+              "fileReplacements": [
+                  {
+                    "replace": "src/environments/environment.ts",
+                    "with": "src/environments/environment.workflow.ts"
+                  }
+                ]
             }
           },
           "defaultConfiguration": "development"
@@ -99,7 +110,15 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.development.ts"
                 }
-              ] 
+              ]
+            },
+            "workflow": {
+             "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.workflow.ts"
+                }
+              ]
             }
           },
           "options": {
