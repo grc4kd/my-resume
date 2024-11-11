@@ -121,6 +121,7 @@
               ]
             }
           },
+          "defaultConfiguration": "development",
           "options": {
             "polyfills": [
               "zone.js",
