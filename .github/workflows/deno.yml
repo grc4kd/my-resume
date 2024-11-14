@@ -26,7 +26,6 @@ jobs:
       url: https://github.com
     env:
       ON_GITHUB_RUNNER: true
-      APP_CHECK_DEBUG_TOKEN_FROM_CI: ${{ secrets.APP_CHECK_DEBUG_TOKEN_FROM_CI }}
 
     defaults:
       run:
@@ -69,6 +68,8 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+        env:
+          APP_CHECK_DEBUG_TOKEN: ${{ secrets.APP_CHECK_DEBUG_TOKEN }}
           
       # Uncomment this step to verify the use of 'deno fmt' on each commit.
       # - name: Verify formatting

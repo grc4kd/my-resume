@@ -19,20 +19,22 @@ const app = initializeApp(firebaseConfig);
 if (environment.useAppCheck) {
   // when true, debug token env configuration will emit a debug token in the JavaScript console
   // which can then be set up in Firebase - App Check console
-  let appCheckDebugToken: boolean | string = environment.useAppCheckDebugToken;
-
-  // CI environments require generated token from Firebase - App Check console
-  if (environment.useCIAppCheckDebugToken) {
-    const appCheckDebugTokenFromCI = Object.values(globalThis).some(gb => gb === 'APP_CHECK_DEBUG_TOKEN_FROM_CI');
-    if (typeof appCheckDebugTokenFromCI === "string") {
-      appCheckDebugToken = appCheckDebugTokenFromCI;
-    }
+  const useAppCheckDebugToken: boolean | string = environment.useAppCheckDebugToken;
+  let appCheckToken: string = ""
+  let appCheckDebugToken: string = ""
+  if (useAppCheckDebugToken && Object.values(globalThis).some(gb => gb === 'APP_CHECK_DEBUG_TOKEN'))
+  {
+    appCheckDebugToken = Object.values(globalThis).find(gb => gb === 'APP_CHECK_DEBUG_TOKEN');
+  }
+  
+  if (typeof appCheckDebugToken === "string") {
+    appCheckToken = appCheckDebugToken;
   }
 
   // The globalThis global property allows one to access the global object regardless of the current environment.
   Object.defineProperty(globalThis, 
     'FIREBASE_APPCHECK_DEBUG_TOKEN', {
-    value: appCheckDebugToken,
+    value: appCheckToken,
     enumerable: false,
     configurable: true,
     writable: true,
