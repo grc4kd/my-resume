@@ -3,5 +3,4 @@ export const environment = {
   useFirebaseEmulator: false,
   useAppCheck: true,
   useAppCheckDebugToken: false,
-  useCIAppCheckDebugToken: false,
 };
