@@ -17,7 +17,7 @@ export class ExperiencesComponent implements OnDestroy {
   experiencesSubscription: Subscription;
 
   constructor(private firebaseAppService: FirebaseAppService) {
-    this.experiencesSubscription = from(firebaseAppService.getExperiences()).subscribe(experiences => {
+    this.experiencesSubscription = from(this.firebaseAppService.getExperiences()).subscribe(experiences => {
       this.experiences = experiences;
     })
   }
