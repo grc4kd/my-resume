@@ -1,6 +1,6 @@
 
 import { FirebaseAppService } from './firebase-app.service';
-import { Firestore, connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
+import { Firestore, getFirestore } from 'firebase/firestore';
 import { seedMockData } from '../../../seeding/seedMockData';
 import { EXPERIENCES } from '../../data/mock-experiences';
 import { WEBLINK } from '../../data/mockWebLinks';
@@ -82,4 +82,5 @@ describe('FirebaseAppService', () => {
     });
   });
 });
+
 

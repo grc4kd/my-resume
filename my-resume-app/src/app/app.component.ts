@@ -1,12 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { MatIconModule } from "@angular/material/icon";
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 import { Firestore, getFirestore } from 'firebase/firestore';
 
 import { initializeApp } from 'firebase/app';
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
 
-import { ExperiencesComponent } from "./experiences/experiences.component";
+import { ExperiencesComponent } from './experiences/experiences.component';
 import { FirebaseAppService } from './services/firebase-app.service';
 import { SvgIconService } from './services/svg-icon.service';
 import { firebaseConfig } from '../../secrets/firebase-config';
