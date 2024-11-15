@@ -1,6 +1,6 @@
 
 import { FirebaseAppService } from './firebase-app.service';
-import { Firestore, connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
+import { Firestore, getFirestore } from 'firebase/firestore';
 import { seedMockData } from '../../../seeding/seedMockData';
 import { EXPERIENCES } from '../../data/mock-experiences';
 import { WEBLINK } from '../../data/mockWebLinks';
@@ -9,6 +9,7 @@ import { firebaseConfig } from '../../../secrets/firebase-config';
 import { initializeApp } from 'firebase/app';
 import { of } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { setupEmulator } from './helpers/setupEmulator';
 
 describe('FirebaseAppService', () => {
   let firebaseAppService: FirebaseAppService;
@@ -16,12 +17,11 @@ describe('FirebaseAppService', () => {
   const db = getFirestore();
 
   // To avoid tests against a cloud-hosted instance, an emulator is utilized on the same machine
-  // running tests.
+  // running tests. 
+  /** @var environment.useFirebaseEmulator defaults to true, when false skips emulator setup and contacts live Firestore */
   /** @link https://firebase.google.com/docs/emulator-suite/connect_firestore */
   if (environment.useFirebaseEmulator) {
-    console.log("Running firestore emulator during ng test");
-    console.log("machine window.location.hostname === " + window.location.hostname);
-    connectFirestoreEmulator(db, 'localhost', 8080);
+    setupEmulator(db);
   }
 
   beforeAll(() => {
@@ -82,4 +82,5 @@ describe('FirebaseAppService', () => {
     });
   });
 });
+
 
