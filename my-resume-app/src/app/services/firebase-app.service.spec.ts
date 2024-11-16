@@ -24,7 +24,7 @@ describe('FirebaseAppService', () => {
     setupEmulator(db);
   }
 
-  beforeAll(() => {
+  beforeAll(async () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: Firestore, useValue: db },
@@ -32,7 +32,7 @@ describe('FirebaseAppService', () => {
     });
 
     if (environment.useFirebaseEmulator) {
-      seedMockData(db);
+      await seedMockData(db);
     }
 
     if (!environment.useFirebaseEmulator) {
