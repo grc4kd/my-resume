@@ -1,19 +1,23 @@
 import { Injectable } from "@angular/core";
 
-import { Firestore, collection, doc, getDoc, getDocs, getFirestore, query } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, getFirestore, query } from "firebase/firestore";
 
 import { WebLink } from "../../data/webLink";
 import { Experience } from "../../data/experience";
 import { Observable, filter, from, map } from "rxjs";
+import { setupEmulator } from "./helpers/setupEmulator";
+import { environment } from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root',
 })
 export class FirebaseAppService {
-    private readonly db: Firestore;
+    private db = getFirestore();
 
-    constructor() {
-        this.db = getFirestore();
+    constructor() {        
+        if (environment.useFirebaseEmulator) {
+            setupEmulator(this.db);
+        }
     }
 
     public getGitHubLink(): Observable<WebLink> {

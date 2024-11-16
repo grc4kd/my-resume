@@ -6,10 +6,19 @@
 # This workflow will install Deno then run `deno lint` and `deno test`.
 # For more information see: https://github.com/denoland/setup-deno
 
+# Workflow Notes
+# 1. Workflow defines a single job named `test`
+# 2. Uses a custom environment named `workflow` running on `ubuntu-latest`
+# 3. Sets environment variables for debug tests on GitHub runners / App Check debug token
+# 4. Runs linting with Deno first to stop if there are any detectable code quality issues
+# 5. Runs `npm ci` for a clean install of node dependencies using the `workflow` Angular configuration
+# 6. Builds the Angular project in test job working directory
+# 7. This workflow file does _not_ deploy the project. That's handled under deployments.
+
 name: Lint App with Deno / Build and test Angular App with Angular ng test/karma
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
   push:
     branches: ["main"]
   pull_request:
@@ -21,11 +30,12 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    environment: 
+    environment:
       name: workflow
-      url: https://github.com
+      url: https://console.firebase.google.com/
     env:
       ON_GITHUB_RUNNER: true
+      FIREBASE_APPCHECK_DEBUG_TOKEN: ${{ secrets.FIREBASE_APPCHECK_DEBUG_TOKEN_FOR_CI }}
 
     defaults:
       run:
@@ -33,15 +43,15 @@ jobs:
 
     strategy:
       matrix:
-        node-version: ['22.x']
+        node-version: ["22.x"]
 
-    steps: 
+    steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: set FIREBASE_CONFIG from GitHub secret
         env:
@@ -68,7 +78,7 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
-          
+
       # Uncomment this step to verify the use of 'deno fmt' on each commit.
       # - name: Verify formatting
       #   run: deno fmt --check
@@ -80,8 +90,7 @@ jobs:
         run: npm ci -c workflow
 
       - name: build the Angular project with npm
-        # run if a script in package.json is present
-        run: npm run workflow-build --if-present
+        run: npm run workflow-build
 
       - name: test Angular project
         run: npm run workflow-test
