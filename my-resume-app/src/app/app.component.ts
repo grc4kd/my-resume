@@ -12,7 +12,7 @@ import { SvgIconService } from './services/svg-icon.service';
 import { firebaseConfig } from '../../secrets/firebase-config';
 import { environment } from '../environments/environment';
 import { setupEmulator } from './services/helpers/setupEmulator';
-import { setupAppCheck } from './setupAppCheck';
+import { setupAppCheck } from '../../app-check/setupAppCheck';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 /**
