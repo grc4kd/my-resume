@@ -7,4 +7,9 @@
         </a>
     }
 </mat-toolbar>
+
+@if (nowLoading) {
+    <mat-progress-bar mode="buffer"></mat-progress-bar>
+}
+
 <app-experiences></app-experiences>
