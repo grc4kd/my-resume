@@ -48,7 +48,7 @@ describe('FirebaseAppService', () => {
           // User is signed in, see docs for a list of available properties
           // https://firebase.google.com/docs/reference/js/auth.user
           const uid = user.uid;
-          await seedMockData(db, uid);
+          seedMockData(db, uid);
         } else {
           // User is signed out
           // ...

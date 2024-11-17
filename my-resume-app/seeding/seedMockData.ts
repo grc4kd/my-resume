@@ -9,16 +9,16 @@ const datePipe = new DatePipe('en-US', undefined, { dateFormat: 'y-MM-dd' });
  * Seed mock data from the source code mock data information.
  * @param db {Firestore} a Firestore database that can be hosted on Google Cloud or using the local emulator
  */
-export async function seedMockData(db: Firestore, uid: string) {
+export function seedMockData(db: Firestore, uid: string) {
   const webLink = WEBLINK;
   
   // overload user id while seeding data, passing in an id returned from Firebase Auth
   webLink.author_uid = uid;
 
   // check existing documents before writing seeded data
-  getDoc(doc(db, "web-links", "github")).then((snap) => {
+  getDoc(doc(db, "web-links", "github")).then(async (snap) => {
     if (!snap.exists()) {
-      setDoc(doc(db, 'web-links', 'github'), webLink);
+      await setDoc(doc(db, 'web-links', 'github'), webLink);
     }
   });
 
