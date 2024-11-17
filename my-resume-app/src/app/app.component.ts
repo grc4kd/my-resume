@@ -11,25 +11,23 @@ import { SvgIconService } from './services/svg-icon.service';
 import { firebaseConfig } from '../../secrets/firebase-config';
 import { environment } from '../environments/environment';
 import { setupEmulator } from './services/helpers/setupEmulator';
-import { setupAppCheck } from './setupAppCheck';
+import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
+import { appCheckSiteKey } from '../../secrets/app-check-config';
 
-/**
- * Object literal type alias containing data about a special reserved environment variable for App Check.
- * @var name The name of the debug token environment variable from documentation.
- * @var host The online documentation host server FQDN.
- * @var filename The document from the documentation server.
- * @var version (as of 2024-11-12) A publishing tag containing a date, revision, and release candidate number
- */
-export const AppCheckDebugToken = {
-  name: 'FIREBASE_APPCHECK_DEBUG_TOKEN',
-  host: 'firebase.google.com',
-  filename: '/docs/app-check/web/debug-provider',
-  version: 't-devsite-webserver-20241112-r02-rc01.464830024708363737',
-};
+const app = initializeApp(firebaseConfig);
 
-export const app = initializeApp(firebaseConfig);
+if (environment.useAppCheck || environment.production) {
+  // Pass your reCAPTCHA v3 site key (public key) to activate(). Make sure this
+  // key is the counterpart to the secret key you set in the Firebase console.
+  initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider(appCheckSiteKey),
 
-setupAppCheck();
+    // Optional argument. If true, the SDK automatically refreshes App Check
+    // tokens as needed.
+    isTokenAutoRefreshEnabled: true,
+  });
+}
+
 
 const db: Firestore = getFirestore();
 
