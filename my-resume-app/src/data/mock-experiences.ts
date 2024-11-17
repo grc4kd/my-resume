@@ -3,6 +3,7 @@ import { Experience } from './experience';
 
 export const EXPERIENCES: Experience[] = [
   {
+    author_uid: '',
     company: 'Mastco',
     description:
       'A person who designs and creates software to produce a desired output by composing programs from ' +
@@ -20,6 +21,7 @@ export const EXPERIENCES: Experience[] = [
     },
   },
   {
+    author_uid: '',
     company: "Sam's Fast Stop",
     description:
       'A person who prepares food by applying heat to and measuring the temperature of ingredients and ' +
@@ -48,6 +50,7 @@ export const EXPERIENCES: Experience[] = [
     },
   },
   {
+    author_uid: '',
     company: "RJ's Executive Courier",
     description:
       'A person who delivers various packages from one location to another using an accelerated mode of transport.',
@@ -58,7 +61,7 @@ export const EXPERIENCES: Experience[] = [
     title: 'Delivery Driver',
     detail: {
       description: [
-        'Picking up packages',
+       'Picking up packages',
         'Delivering packages',
         'Filling out delivery log',
         'Getting signature if possible and endorsing if not available',
@@ -70,6 +73,7 @@ export const EXPERIENCES: Experience[] = [
     },
   },
   {
+    author_uid: '',
     company: 'Acme Corporation',
     description: 'Software Engineer',
     endDate: Timestamp.fromMillis(Date.parse('2004-12-31T00:00:00.000-06:00')),
@@ -88,6 +92,7 @@ export const EXPERIENCES: Experience[] = [
     },
   },
   {
+    author_uid: '',
     company: 'TechCorp Solutions',
     description: 'Software Engineer',
     endDate: Timestamp.fromDate(new Date('2023-01-01')),
