@@ -11,7 +11,7 @@ export function setupEmulator(db: Firestore) {
   
   console.log('Running firestore emulator during ng test');
   console.log(
-    'machine window.location.hostname === ' + window.location.hostname
+    'machine window.location.hostname === ' + globalThis.location.hostname
   );
   try {
     connectFirestoreEmulator(db, 'localhost', 8080);
