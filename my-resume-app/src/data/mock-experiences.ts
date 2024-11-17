@@ -3,6 +3,7 @@ import { Experience } from './experience';
 
 export const EXPERIENCES: Experience[] = [
   {
+
     author_uid: '',
     company: 'Mastco',
     description:
@@ -61,7 +62,7 @@ export const EXPERIENCES: Experience[] = [
     title: 'Delivery Driver',
     detail: {
       description: [
-       'Picking up packages',
+        'Picking up packages',
         'Delivering packages',
         'Filling out delivery log',
         'Getting signature if possible and endorsing if not available',
