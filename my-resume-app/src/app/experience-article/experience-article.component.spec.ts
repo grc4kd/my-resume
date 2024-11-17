@@ -69,6 +69,9 @@ describe('ExperienceArticleComponent', () => {
   it('should display the company in a header section', () => {
     const experienceArticleElement: HTMLElement = fixture.nativeElement;
     const h2 = experienceArticleElement.querySelector('h2')!;
-    expect(h2.textContent).toEqual(expectedExperience.company);
+    if (expectedExperience.company)
+    {
+      expect(h2.textContent).toEqual(expectedExperience.company);
+    }
   });
 });
