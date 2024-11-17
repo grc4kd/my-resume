@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+
 import { Firestore, getFirestore } from 'firebase/firestore';
 
 import { initializeApp } from 'firebase/app';
@@ -12,6 +13,7 @@ import { firebaseConfig } from '../../secrets/firebase-config';
 import { environment } from '../environments/environment';
 import { setupEmulator } from './services/helpers/setupEmulator';
 import { setupAppCheck } from './setupAppCheck';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 /**
  * Object literal type alias containing data about a special reserved environment variable for App Check.
@@ -42,11 +44,12 @@ if (environment.useFirebaseEmulator) {
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [MatToolbarModule, MatIconModule, ExperiencesComponent],
+  imports: [MatToolbarModule, MatIconModule, ExperiencesComponent, MatProgressBarModule],
 })
 export class AppComponent implements OnInit {
   title = 'my-resume-app';
   gitHubUrl = '';
+  nowLoading: boolean = true;
 
   constructor(private firebaseAppService: FirebaseAppService) {
     inject(SvgIconService);
@@ -55,6 +58,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.firebaseAppService.getGitHubLink().subscribe((webLink) => {
       this.gitHubUrl = webLink.url;
+
+      this.nowLoading = false;
     });
   }
 }
