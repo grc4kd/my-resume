@@ -15,6 +15,17 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
+      - name: set FIREBASE_CONFIG from GitHub secret
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+        run: |
+          mkdir -p secrets;
+          cat << EOF > ./secrets/firebase-config.ts
+          import { FirebaseOptions } from 'firebase/app';
+          export const firebaseConfig: FirebaseOptions = {
+             $(echo "$FIREBASE_CONFIG")
+          };
+          EOF
       - uses: actions/checkout@v4
       - run: npm ci && npm run workflow-test
       - uses: FirebaseExtended/action-hosting-deploy@v0
