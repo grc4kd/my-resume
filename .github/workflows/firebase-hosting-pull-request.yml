@@ -30,7 +30,6 @@ jobs:
       name: workflow
       url: https://console.firebase.google.com/
     env:
-      ON_GITHUB_RUNNER: true
       FIREBASE_APPCHECK_DEBUG_TOKEN: ${{ secrets.FIREBASE_APPCHECK_DEBUG_TOKEN_FOR_CI }}
 
     defaults:
