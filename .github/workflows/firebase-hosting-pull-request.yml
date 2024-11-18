@@ -11,7 +11,7 @@
 # 2. Uses a custom environment named `workflow` running on `ubuntu-latest`
 # 3. Sets environment variables for debug tests on GitHub runners / App Check debug token
 # 4. Runs linting with Deno first to stop if there are any detectable code quality issues
-# 5. Runs `npm ci` for a clean install of node dependencies 
+# 5. Runs `npm ci` for a clean install of node dependencies
 # 6. Run `npm run workflow-test` to build Angular project and run CI tests
 # 7. Uses FirebaseExtended/action-hosting-deploy to deploy the project to a Firebase PR preview channel
 
@@ -21,7 +21,7 @@ permissions:
   checks: write
   contents: read
   pull-requests: write
-  
+
 jobs:
   build_and_preview:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
@@ -30,7 +30,6 @@ jobs:
       name: workflow
       url: https://console.firebase.google.com/
     env:
-      ON_GITHUB_RUNNER: true
       FIREBASE_APPCHECK_DEBUG_TOKEN: ${{ secrets.FIREBASE_APPCHECK_DEBUG_TOKEN_FOR_CI }}
 
     defaults:
@@ -82,10 +81,18 @@ jobs:
       - name: Run linter
         run: deno lint
 
-      - uses: actions/checkout@v4
-      - run: npm ci && npm run workflow-test
+      - name: install node dependencies with npm ci
+        run: npm ci -c workflow
+
+      - name: build the Angular project with npm
+        run: npm run workflow-build
+
+      - name: test Angular project
+        run: npm run workflow-test
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RED_PARITY_369703 }}
           projectId: red-parity-369703
+          entryPoint: "./my-resume-app"
