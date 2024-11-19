@@ -87,8 +87,8 @@ jobs:
       - name: build the Angular project with npm
         run: npm run workflow-build
 
-      - name: test Angular project, use production mode to seed data to preview channel
-        run: npm run workflow-test -- -c production
+      - name: test Angular project, seed data using workflow run-script
+        run: npm run workflow-test
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

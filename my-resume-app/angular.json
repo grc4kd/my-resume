@@ -119,6 +119,9 @@
                   "with": "src/environments/environment.workflow.ts"
                 }
               ]
+            },
+            "production": {
+              "sourceMap": false
             }
           },
           "defaultConfiguration": "development",
