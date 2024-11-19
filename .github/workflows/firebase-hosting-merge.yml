@@ -79,12 +79,12 @@ jobs:
         run: deno lint
 
       - name: install node dependencies with npm ci
-        run: npm ci -c workflow
+        run: npm ci
 
       - name: build the Angular project with npm
-        run: npm run workflow-build
+        run: npm run build
 
-      - name: test Angular project
+      - name: test Angular project inside workflow, using mocks for testing Firebase
         run: npm run workflow-test
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
