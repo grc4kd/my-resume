@@ -82,7 +82,7 @@ jobs:
         run: npm ci
 
       - name: build the Angular project with npm
-        run: npm run build
+        run: npm run workflow-build
 
       - name: test Angular project inside workflow, using mocks for testing Firebase
         run: npm run workflow-test

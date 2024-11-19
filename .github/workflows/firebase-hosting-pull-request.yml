@@ -85,10 +85,10 @@ jobs:
         run: npm ci
 
       - name: build the Angular project with npm
-        run: npm run build
+        run: npm run workflow-build
 
       - name: test Angular project, use production mode to seed data to preview channel
-        run: npm run test:headless-no-watch -- -c production
+        run: npm run workflow-test -- -c production
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
