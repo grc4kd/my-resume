@@ -87,8 +87,8 @@ jobs:
       - name: build the Angular project with npm
         run: npm run build
 
-      - name: test Angular project
-        run: npm run test:headless-no-watch
+      - name: test Angular project, use production mode to seed data to preview channel
+        run: npm run test:headless-no-watch -- -c production
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
