@@ -85,7 +85,7 @@ jobs:
         run: npm run workflow-build
 
       - name: test Angular project, but don't seed data (use mocks for production)
-        run: npm run test -- -c production
+        run: npm run test:headless-no-watch -- -c production
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
