@@ -78,8 +78,15 @@ jobs:
       - name: Run linter
         run: deno lint
 
-      - uses: actions/checkout@v4
-      - run: npm ci -c workflow && npm run workflow-test
+      - name: install node dependencies with npm ci
+        run: npm ci -c workflow
+
+      - name: build the Angular project with npm
+        run: npm run workflow-build
+
+      - name: test Angular project
+        run: npm run workflow-test
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
