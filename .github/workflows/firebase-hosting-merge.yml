@@ -11,7 +11,7 @@
 # 2. Uses a custom environment named `workflow` running on `ubuntu-latest`
 # 3. Sets environment variables for debug tests on GitHub runners / App Check debug token
 # 4. Runs linting with Deno first to stop if there are any detectable code quality issues
-# 5. Runs `npm ci` for a clean install of node dependencies 
+# 5. Runs `npm ci` for a clean install of node dependencies
 # 6. Run `npm run workflow-test` to build Angular project and run CI tests
 # 7. Uses FirebaseExtended/action-hosting-deploy to deploy the project to the Firebase live channel (production)
 
@@ -32,7 +32,7 @@ jobs:
     defaults:
       run:
         working-directory: ./my-resume-app
-    
+
     strategy:
       matrix:
         node-version: ["22.x"]
@@ -93,3 +93,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RED_PARITY_369703 }}
           channelId: live
           projectId: red-parity-369703
+          entryPoint: "./my-resume-app"
