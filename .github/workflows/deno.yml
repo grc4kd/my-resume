@@ -94,3 +94,11 @@ jobs:
 
       - name: test Angular project
         run: npm run workflow-test
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RED_PARITY_369703 }}
+          channelId: live
+          projectId: red-parity-369703
+          entryPoint: "./my-resume-app"
