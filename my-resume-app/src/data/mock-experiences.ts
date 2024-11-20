@@ -1,4 +1,3 @@
-import { Timestamp } from 'firebase/firestore';
 import { Experience } from './experience';
 
 export const EXPERIENCES: Experience[] = [
@@ -9,10 +8,8 @@ export const EXPERIENCES: Experience[] = [
     description:
       'A person who designs and creates software to produce a desired output by composing programs from ' +
       'existing libraries and programming languages, often resulting in the creation of new computer source code.',
-    endDate: Timestamp.fromMillis(Date.parse('2001-12-31T00:00:00.000-06:00')),
-    startDate: Timestamp.fromMillis(
-      Date.parse('2001-01-01T00:00:00.000-06:00')
-    ),
+    endDate: new Date(Date.parse('2001-12-31T00:00:00.000-06:00')),
+    startDate: new Date(Date.parse('2001-01-01T00:00:00.000-06:00')),
     title: 'Software Developer',
     detail: {
       title: 'Software Developer Detail',
@@ -27,10 +24,8 @@ export const EXPERIENCES: Experience[] = [
     description:
       'A person who prepares food by applying heat to and measuring the temperature of ingredients and ' +
       'assembles them into a complete meal item as part of a regular assembly line process.',
-    endDate: Timestamp.fromMillis(Date.parse('2002-12-31T00:00:00-06:00')),
-    startDate: Timestamp.fromMillis(
-      Date.parse('2002-01-01T00:00:00.000-06:00')
-    ),
+    endDate: new Date(Date.parse('2002-12-31T00:00:00-06:00')),
+    startDate: new Date(Date.parse('2002-01-01T00:00:00.000-06:00')),
     title: 'Line Cook',
     detail: {
       description: [
@@ -55,10 +50,8 @@ export const EXPERIENCES: Experience[] = [
     company: "RJ's Executive Courier",
     description:
       'A person who delivers various packages from one location to another using an accelerated mode of transport.',
-    endDate: Timestamp.fromMillis(Date.parse('2003-05-31T00:00:00.000-05:00')),
-    startDate: Timestamp.fromMillis(
-      Date.parse('2003-01-01T00:00:00.000-06:00')
-    ),
+    endDate: new Date(Date.parse('2003-05-31T00:00:00.000-05:00')),
+    startDate: new Date(Date.parse('2003-01-01T00:00:00.000-06:00')),
     title: 'Delivery Driver',
     detail: {
       description: [
@@ -77,10 +70,8 @@ export const EXPERIENCES: Experience[] = [
     author_uid: '',
     company: 'Acme Corporation',
     description: 'Software Engineer',
-    endDate: Timestamp.fromMillis(Date.parse('2004-12-31T00:00:00.000-06:00')),
-    startDate: Timestamp.fromMillis(
-      Date.parse('2004-01-01T00:00:00.000-06:00')
-    ),
+    endDate: new Date(Date.parse('2004-12-31T00:00:00.000-06:00')),
+    startDate: new Date(Date.parse('2004-01-01T00:00:00.000-06:00')),
     title: 'Software Engineer',
     detail: {
       description: [
@@ -96,8 +87,8 @@ export const EXPERIENCES: Experience[] = [
     author_uid: '',
     company: 'TechCorp Solutions',
     description: 'Software Engineer',
-    endDate: Timestamp.fromDate(new Date('2023-01-01')),
-    startDate: Timestamp.fromDate(new Date('2023-06-01')),
+    endDate: new Date('2023-01-01'),
+    startDate: new Date('2023-06-01'),
     title: 'Senior Java Programmer',
     detail: {
       description: [

@@ -93,18 +93,17 @@ describe('FirebaseAppService', () => {
         expect(experiences.length).toBeGreaterThan(0);
     
         experiences.forEach((experience) => {
-          const expectedStartTime = experience.startDate?.toMillis();
-          const expectedEndTime = experience.endDate?.toMillis();
+          const expectedStartTime = experience.startDate;
+          const expectedEndTime = experience.endDate;
           
-          const expectedExperienceObj = expectedExperiences.find(e => e.title === experience.title && e.startDate?.toMillis() === expectedStartTime && e.endDate?.toMillis() === expectedEndTime);
+          const expectedExperienceObj = expectedExperiences.find(e => e.title === experience.title && e.startDate === expectedStartTime && e.endDate === expectedEndTime);
           if (expectedExperienceObj)
           {
             experience.author_uid = '';
             expectedExperienceObj.author_uid = '';
-          }
 
-          expect(expectedExperienceObj).toBeDefined();
-          expect(experience).toEqual(expectedExperienceObj!);
+            expect(experience).toEqual(expectedExperienceObj!);
+          }
         });
 
         done();

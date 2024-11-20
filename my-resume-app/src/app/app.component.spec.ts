@@ -44,9 +44,9 @@ describe('AppComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should have the 'my-resume-app' title`, () => {
+  it(`should have the 'My Resume App - Angular 18 - Angular Material' title`, () => {
     fixture.detectChanges();
-    expect(component.title).toEqual('my-resume-app');
+    expect(component.title).toEqual('My Resume App - Angular 18 - Angular Material');
   });
 
   it('should have initialized the webLink data from Firebase after input properties are set', waitForAsync(() => {

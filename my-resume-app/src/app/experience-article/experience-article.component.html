@@ -3,7 +3,7 @@
     @if (experience) {
     <h1 class="title">{{experience.title}}</h1>
     <div class="dates">
-        {{experience.startDate?.toDate() | date}}-{{experience.endDate?.toDate() | date}}
+        {{experience.startDate | date}}-{{experience.endDate | date}}
     </div>
     <div class="description">
         {{experience.description}}
