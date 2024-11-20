@@ -1,0 +1,20 @@
+{
+  "name": "firebase-admin",
+  "version": "0.1.0",
+  "description": "Administration functions for priviledged access to upload bulk data and manage Firebase security roles.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "deno lint *.ts **/*.ts",
+    "build": "tsc",
+    "build-start": "tsc && node built/firebase-admin/index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "firebase-admin": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.6.12",
+    "deno": "^0.1.1"
+  }
+}

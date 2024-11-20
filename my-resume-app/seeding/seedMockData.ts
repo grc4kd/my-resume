@@ -29,8 +29,8 @@ export function seedMockData(db: Firestore, uid: string) {
       EXPERIENCES.forEach(experience => {
         const whitespaceRegex = /\s/gi;
         const experienceTitleFormat = experience.title?.replaceAll(whitespaceRegex, '-').toLowerCase();
-        const startDateFormat = datePipe.transform(experience.startDate?.toDate());
-        const endDateFormat = datePipe.transform(experience.endDate?.toDate());
+        const startDateFormat = datePipe.transform(experience.startDate);
+        const endDateFormat = datePipe.transform(experience.endDate);
     
         experience.author_uid = uid;
     
