@@ -1,22 +1,43 @@
-import { Firestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import {
+  connectFirestoreEmulator,
+  EmulatorMockTokenOptions,
+  Firestore,
+  getFirestore,
+} from 'firebase/firestore';
+import { firebaseConfig } from '../../../../secrets/firebase-config';
 
-let emulatorConnected: boolean = false;
+type FirestoreEmulatorConnectionError = {
+  error: 'rejected' | 'bad_request';
+  reason: string;
+};
 
-export function setupEmulator(db: Firestore) {
-  // Firestore settings can not be changed after the Firestore object has already been started
-  // use a local flag to set up the emulator once, handling the test project
-  if (emulatorConnected) {
-    return;
-  }
-  
+/***
+ * Set up the Firestore emulator using default settings and return the database Firestore object
+ * @returns {Firestore} an initialized Firestore instance object with settings for local emulation
+ */
+export function setupEmulator(): Firestore | FirestoreEmulatorConnectionError {
+  const mockUserToken: EmulatorMockTokenOptions = {
+    sub: 'FirestoreMockUserToken',
+    provider_id: 'anonymous',
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
   console.log('Running firestore emulator during ng test');
   console.log(
-    'machine window.location.hostname === ' + globalThis.location.hostname
+    `machine window.location.hostname === ${globalThis.location.hostname}`
   );
   try {
-    connectFirestoreEmulator(db, 'localhost', 8080);
-    emulatorConnected = true;
+    connectFirestoreEmulator(db, 'localhost', 8080, { mockUserToken });
+    return db;
   } catch {
-    console.error('Error connecting to Firestore Emulator.');
+    const reason = `App Name: ${
+      app.name
+    }, Mock User Token: ${mockUserToken}\nFirestore object: ${db.toJSON()}`;
+
+    console.error('Error connecting to Firestore Emulator.' + reason);
+    return { error: 'rejected', reason };
   }
 }

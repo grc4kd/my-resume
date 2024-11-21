@@ -23,16 +23,13 @@ export class FirebaseAppService {
   private db = getFirestore();
 
   constructor() {
-    if (environment.useFirebaseEmulator) {
-      setupEmulator(this.db);
-    }
-
+    // authentication used for production mode
     if (environment.production) {
-      const auth = getAuth();
+      const auth = getAuth(this.db.app);
       signInAnonymously(auth)
         .then(() => {
           console.log(
-            `${FirebaseAppService.name}(): Logged in anonymously, currentUser uid: ${auth.currentUser?.uid}`
+            `${FirebaseAppService.name}: Logged in anonymously, currentUser uid: ${auth.currentUser?.uid}`
           );
         })
         .catch((error) => {
@@ -40,9 +37,14 @@ export class FirebaseAppService {
           const errorMessage = error.message;
 
           console.error(
-            `${FirebaseAppService.name}(): Error with anonymous sign-in ${errorCode} - ${errorMessage}`
+            `${FirebaseAppService.name}: Error with anonymous sign-in ${errorCode} - ${errorMessage}`
           );
         });
+    }
+
+    // use an emulator instead of logging in as an anonymous user when developing and using the Firebase emulator
+    if (!environment.production && environment.useFirebaseEmulator) {
+      setupEmulator();
     }
   }
 
