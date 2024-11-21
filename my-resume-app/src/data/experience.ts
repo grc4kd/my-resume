@@ -5,7 +5,7 @@ export interface Experience {
     title: string;
     description: string;
     company: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: string;
+    endDate: string;
     detail: ExperienceDetail;
 }
