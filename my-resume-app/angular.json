@@ -201,7 +201,8 @@
       "@angular-eslint/schematics",
       "@cypress/schematic",
       "@schematics/angular"
-    ]
+    ],
+    "analytics": false
   },
   "schematics": {
     "@angular-eslint/schematics:application": {

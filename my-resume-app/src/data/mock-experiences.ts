@@ -2,103 +2,96 @@ import { Experience } from './experience';
 
 export const EXPERIENCES: Experience[] = [
   {
-
-    author_uid: '',
-    company: 'Mastco',
-    description:
-      'A person who designs and creates software to produce a desired output by composing programs from ' +
-      'existing libraries and programming languages, often resulting in the creation of new computer source code.',
-    endDate: new Date(Date.parse('2001-12-31T00:00:00.000-06:00')),
-    startDate: new Date(Date.parse('2001-01-01T00:00:00.000-06:00')),
-    title: 'Software Developer',
-    detail: {
-      title: 'Software Developer Detail',
-      subtitle: 'Full-Stack Developer',
-      description:
-        'A full-stack developer is a type of software developer that has deep understanding of both front and back-end systems.',
-    },
+    'author_uid': '',
+    'company': 'Mastco',
+    'description': 'Software developer who creates software by composing existing libraries and programming languages.',
+    'endDate': '2001-12-31T05:00:00.000Z',
+    'startDate': '2001-06-01T06:00:00.000Z',
+    'title': 'Software Developer',
+    'detail': {
+      'title': 'Software Developer Detail',
+      'subtitle': 'Full-Stack Developer',
+      'description': 'Full-stack developer with expertise in both front and back-end systems.'
+    }
   },
   {
-    author_uid: '',
-    company: "Sam's Fast Stop",
-    description:
-      'A person who prepares food by applying heat to and measuring the temperature of ingredients and ' +
-      'assembles them into a complete meal item as part of a regular assembly line process.',
-    endDate: new Date(Date.parse('2002-12-31T00:00:00-06:00')),
-    startDate: new Date(Date.parse('2002-01-01T00:00:00.000-06:00')),
-    title: 'Line Cook',
-    detail: {
-      description: [
-        'grill',
-        'fryer',
-        'fridge',
-        'freezer',
-        'bathrooms',
-        'salads',
-        'make',
-        'expeditite',
-        'steamer',
-        'stock-out',
-        'clean',
-      ],
-      subtitle: "Don't forget to wash your hands!",
-      title: 'Responsibilities',
-    },
+    'author_uid': '',
+    'company': "Sam's Fast Stop",
+    'description': 'Line cook who prepares food by applying heat to ingredients assembled following make instructions.',
+    'endDate': '2002-12-31T05:00:00.000Z',
+    'startDate': '2002-02-04T05:00:00.000Z',
+    'title': 'Line Cook',
+    'detail': {
+      'title': 'Responsibilities',
+      'subtitle': 'Food Preparation',
+      'description': [
+        'Grill',
+        'Fryer',
+        'Fridge',
+        'Freezer',
+        'Restrooms',
+        'Salads',
+        'Make',
+        'Expedite',
+        'Steamer',
+        'Stock-out',
+        'Clean'
+      ]
+    }
   },
   {
-    author_uid: '',
-    company: "RJ's Executive Courier",
-    description:
-      'A person who delivers various packages from one location to another using an accelerated mode of transport.',
-    endDate: new Date(Date.parse('2003-05-31T00:00:00.000-05:00')),
-    startDate: new Date(Date.parse('2003-01-01T00:00:00.000-06:00')),
-    title: 'Delivery Driver',
-    detail: {
-      description: [
-        'Picking up packages',
-        'Delivering packages',
-        'Filling out delivery log',
-        'Getting signature if possible and endorsing if not available',
-        'Coordinating with housekeeping at delivery point',
-        'Contacting dispatch',
-      ],
-      title: 'Courier Job Description',
-      subtitle: '',
-    },
+    'author_uid': '',
+    'company': "RJ's Executive Courier",
+    'description': 'Transports packages using an accelerated mode of transport.',
+    'endDate': '2004-05-31T06:00:00.000Z',
+    'startDate': '2003-01-01T05:00:00.000Z',
+    'title': 'Delivery Driver',
+    'detail': {
+      'title': 'Courier Job Description',
+      'subtitle': '',
+      'description': [
+        'Pick up packages',
+        'Deliver packages to their inteded recipient',
+        'Maintain a delivery log',
+        'Request and acquire signature from the person receiving the package',
+        'Coordinate with housekeeping, security, and similar staff',
+        'Collaborate frequently with dispatch'
+      ]
+    }
   },
   {
-    author_uid: '',
-    company: 'Acme Corporation',
-    description: 'Software Engineer',
-    endDate: new Date(Date.parse('2004-12-31T00:00:00.000-06:00')),
-    startDate: new Date(Date.parse('2004-01-01T00:00:00.000-06:00')),
-    title: 'Software Engineer',
-    detail: {
-      description: [
-        'Developed and maintained a web application using Python and JavaScript.',
-        'Collaborated with cross-functional teams to deliver high-quality software.',
-        'Presented technical solutions to stakeholders and clients.',
-      ],
-      title: 'Software Engineer Detail',
-      subtitle: 'HR / Business Software',
-    },
+    'author_uid': '',
+    'company': 'Acme Corporation',
+    'description': 'Software Engineer',
+    'endDate': '2004-12-31T06:00:00.000Z',
+    'startDate': '2004-06-01T05:00:00.000Z',
+    'title': 'Software Engineer',
+    'detail': {
+      'title': 'Software Engineer Detail',
+      'subtitle': 'HR / Business Software',
+      'description': [
+        'Developed and maintained a web application using Python and JavaScript',
+        'Collaborated with cross-functional teams',
+        'Presented technical solutions'
+      ]
+    }
   },
   {
-    author_uid: '',
-    company: 'TechCorp Solutions',
-    description: 'Software Engineer',
-    endDate: new Date('2023-01-01'),
-    startDate: new Date('2023-06-01'),
-    title: 'Senior Java Programmer',
-    detail: {
-      description: [
+    'author_uid': '',
+    'company': 'TechCorp Solutions',
+    'description': 'Senior Java Programmer',
+    'endDate': '2003-01-01T06:00:00.000Z',
+    'startDate': '2003-01-01T06:00:00.000Z',
+    'title': 'Senior Java Programmer',
+    'detail': {
+      'title': 'Details',
+      'subtitle': 'Lead Engineer',
+      'description': [
         'Developed and maintained complex software applications',
-        'Collaborated with cross-functional teams to deliver high-quality solutions',
+        'Collaborated with cross-functional teams',
         'Implemented new features and enhancements',
-        'Resolved technical issues and ensured smooth operation',
-      ],
-      title: 'Details',
-      subtitle: 'Lead Engineer',
-    },
-  },
+        'Resolved technical issues and ensured smooth operation'
+      ]
+    }
+  }
 ];
