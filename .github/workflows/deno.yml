@@ -7,15 +7,18 @@
 # For more information see: https://github.com/denoland/setup-deno
 
 # Workflow Notes
-# 1. Workflow defines a single job named `test`
+# Angular environment configuration: `workflow`
+# 1. Workflow defines a single job named `ci`
 # 2. Uses a custom environment named `workflow` running on `ubuntu-latest`
-# 3. Sets environment variables for debug tests on GitHub runners / App Check debug token
-# 4. Runs linting with Deno first to stop if there are any detectable code quality issues
-# 5. Runs `npm ci` for a clean install of node dependencies using the `workflow` Angular configuration
-# 6. Builds the Angular project in test job working directory
-# 7. This workflow file does _not_ deploy the project. That's handled under deployments.
+# 3. Sets environment variables for Firebase App Check debug token
+# 4. Runs `npm ci` for a clean install of Angular dependencies
+# 5. Runs linting with `ng lint` first to stop if there are any detectable code quality issues
+# 6. Builds the Angular project with `npm run build`
+# 7. Runs a test for the workflow environment `npm run workflow-test`
 
-name: Lint App with Deno / Build and test Angular App with Angular ng test/karma
+# NOTE: This workflow file does _not_ deploy the project. That's handled under deployments.
+
+name: Continuous Integration (clean install - lint - build - test)
 
 on:
   workflow_dispatch:
@@ -28,17 +31,17 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  ci:
     runs-on: ubuntu-latest
     environment:
       name: workflow
       url: https://console.firebase.google.com/
     env:
-      ON_GITHUB_RUNNER: true
+      environment: workflow
       FIREBASE_APPCHECK_DEBUG_TOKEN: ${{ secrets.FIREBASE_APPCHECK_DEBUG_TOKEN_FOR_CI }}
 
     defaults:
-      run:
+      run:        
         working-directory: ./my-resume-app
 
     strategy:
@@ -67,7 +70,6 @@ jobs:
 
       - name: set APP_CHECK_SITE_KEY from GitHub secret
         env:
-          environment: workflow
           APP_CHECK_SITE_KEY: ${{ secrets.APP_CHECK_SITE_KEY }}
         run: |
           mkdir -p secrets;
@@ -75,8 +77,12 @@ jobs:
           export const appCheckSiteKey = $(echo "\"$APP_CHECK_SITE_KEY\"");
           EOF
 
+      - name: install Angular dependencies
+        run: npm ci
+
       - name: run linter first
         run: npm run lint
 
-      - name: test Angular project with hosted runner
+      - name: test Angular project with hosted runner (no progress, no watch)
+        timeout-minutes: 2
         run: npm run workflow-test
