@@ -67,6 +67,7 @@ jobs:
 
       - name: set APP_CHECK_SITE_KEY from GitHub secret
         env:
+          environment: workflow
           APP_CHECK_SITE_KEY: ${{ secrets.APP_CHECK_SITE_KEY }}
         run: |
           mkdir -p secrets;
@@ -74,23 +75,8 @@ jobs:
           export const appCheckSiteKey = $(echo "\"$APP_CHECK_SITE_KEY\"");
           EOF
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: v1.x
+      - name: run linter first
+        run: npm run lint
 
-      # Uncomment this step to verify the use of 'deno fmt' on each commit.
-      # - name: Verify formatting
-      #   run: deno fmt --check
-
-      - name: Run linter
-        run: deno lint
-
-      - name: install node dependencies with npm ci
-        run: npm ci -c workflow
-
-      - name: build the Angular project with npm
-        run: npm run workflow-build
-
-      - name: test Angular project
+      - name: test Angular project with hosted runner
         run: npm run workflow-test
