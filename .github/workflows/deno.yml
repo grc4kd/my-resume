@@ -85,4 +85,4 @@ jobs:
 
       - name: test Angular project with hosted runner (no progress, no watch)
         timeout-minutes: 2
-        run: npm run workflow-test
+        run: npm run test-ci
