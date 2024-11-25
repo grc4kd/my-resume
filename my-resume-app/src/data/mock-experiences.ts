@@ -42,7 +42,7 @@ export const EXPERIENCES: Experience[] = [
   {
     'author_uid': '',
     'company': "RJ's Executive Courier",
-    'description': 'Delivery driver who transports packages using an accelerated mode of transport.',
+    'description': 'Transports packages using an accelerated mode of transport.',
     'endDate': '2004-05-31T06:00:00.000Z',
     'startDate': '2003-01-01T05:00:00.000Z',
     'title': 'Delivery Driver',
@@ -50,12 +50,12 @@ export const EXPERIENCES: Experience[] = [
       'title': 'Courier Job Description',
       'subtitle': '',
       'description': [
-        'Picked up packages',
-        'Delivered packages',
-        'Filled out delivery log',
-        'Requested and acquired recipient signatures',
-        'Coordinated with housekeeping and security',
-        'Collaborated frequently with dispatch'
+        'Pick up packages',
+        'Deliver packages to their inteded recipient',
+        'Maintain a delivery log',
+        'Request and acquire signature from the person receiving the package',
+        'Coordinate with housekeeping, security, and similar staff',
+        'Collaborate frequently with dispatch'
       ]
     }
   },
