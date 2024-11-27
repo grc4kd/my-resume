@@ -18,7 +18,7 @@
 
 # NOTE: This workflow file does _not_ deploy the project. That's handled under deployments.
 
-name: Continuous Integration (clean install - lint - build - test)
+name: Angular Unit Tests
 
 on:
   workflow_dispatch:
