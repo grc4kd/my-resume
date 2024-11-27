@@ -47,6 +47,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+          cache-dependency-path: "my-resume-app/package-lock.json"
 
       - name: set FIREBASE_CONFIG from GitHub secret
         env:
