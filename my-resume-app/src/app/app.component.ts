@@ -9,14 +9,14 @@ import { ExperiencesComponent } from './experiences/experiences.component';
 import { SvgIconService } from './services/svg-icon.service';
 
 @Component({
-  selector: 'app-root',
   standalone: true,
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [MatToolbarModule, MatIconModule, ExperiencesComponent, MatProgressBarModule],
+  imports: [MatToolbarModule, MatIconModule, ExperiencesComponent, MatProgressBarModule]
 })
 export class AppComponent implements OnInit {
-  title = 'My Resume App - Angular 18 - Angular Material';
+  title = 'My Resume App - Angular 19 - Angular Material';
   gitHubUrl = '';
   nowLoading: boolean = true;
 
