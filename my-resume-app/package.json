@@ -1,6 +1,6 @@
 {
   "name": "my-resume-app",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "lint-build-test": "npm run lint && npm run build && npm run test-ci",
     "build": "ng build",
