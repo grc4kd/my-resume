@@ -6,8 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-experience-article',
   standalone: true,
+  selector: 'app-experience-article',
   templateUrl: './experience-article.component.html',
   styleUrl: './experience-article.component.css',
   imports: [DatePipe, MatButtonModule]

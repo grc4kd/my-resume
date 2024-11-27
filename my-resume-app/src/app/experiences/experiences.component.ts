@@ -6,8 +6,8 @@ import { Observable, Subscription, from, of } from 'rxjs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
-  selector: 'app-experiences',
   standalone: true,
+  selector: 'app-experiences',
   imports: [ExperienceArticleComponent, MatProgressBarModule],
   templateUrl: './experiences.component.html',
   styleUrl: './experiences.component.css'

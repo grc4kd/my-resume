@@ -5,8 +5,8 @@ import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-experience-detail-dialog',
   standalone: true,
+  selector: 'app-experience-detail-dialog',
   templateUrl: './experience-detail-dialog.component.html',
   imports: [MatDialogModule, MatDialogContent, MatButtonModule, ExperienceDetailPipe]
 })
